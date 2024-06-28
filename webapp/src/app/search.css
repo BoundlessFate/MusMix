@@ -1,0 +1,199 @@
+
+body {
+    width: 100vw;
+    height: 100vh;
+    position:absolute;
+    top:-1vh;
+    left:-0.55vw;
+    background-image: linear-gradient(45deg, oklch(24.28% 0.091 258.33), oklch(39.3% 0.077 254.36));
+    overflow:hidden;
+}
+:host {
+    --oxford-blue: oklch(24.28% 0.091 258.33);
+    --indigo-dye: oklch(39.3% 0.077 254.36);
+    --harvest-gold: oklch(76.88% 0.1607355162625189 77.18496550614633);
+    --cream: oklch(95.47% 0.075 119.05);
+
+    --pill-accent: var(--harvest-gold);
+
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+font-size: 3.125rem;
+color: var(--cream);
+font-weight: 500;
+line-height: 100%;
+letter-spacing: -0.125rem;
+margin: 2;
+font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+}
+h2 {
+    font-size: 2rem;
+    color: var(--cream);
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.125rem;
+    margin: 0;
+    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
+    }
+
+main {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: top;
+    align-items: top;
+    padding: 1rem;
+    box-sizing: inherit;
+    position: relative;
+}
+
+.content {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 3rem;
+}
+
+.pill-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    flex-wrap: nowrap;
+    gap: 1.25rem;
+    margin: 2.5rem;
+    margin-left:5rem;
+}
+
+.pill {
+    display: flex;
+    align-items: center;
+    --pill-accent: var(--cream);
+    background: color-mix(in srgb, var(--pill-accent) 5%, transparent);
+    color: var(--pill-accent);
+    padding-inline: 0.75rem;
+    padding-block: 0.375rem;
+    border-radius: 2.75rem;
+    border: 0;
+    transition: background 0.3s ease;
+    font-family: var(--inter-font);
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.4rem;
+    letter-spacing: -0.00875rem;
+    text-decoration: none;
+    margin-left:5rem;
+}
+
+.pill:hover {
+    background: color-mix(in srgb, var(--pill-accent) 15%, transparent);
+}
+
+.pill-group svg {
+    margin-inline-start: 0.25rem;
+}
+
+.top-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 1.25rem;
+    margin-bottom: 20px;
+    position: absolute;
+    top: 3vh;
+    left: 3vw;
+}
+
+.bottom-left {
+    position: absolute;
+    top: 87vh;
+    left: 3vw;
+}
+
+
+.searchContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 250px;
+}
+
+.search-bar{
+    top: 50px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+}
+
+.caption{
+    font-size: 16px;
+}
+
+.input-search{
+    height: 50px;
+    width: 50px;
+    border-style: none;
+    padding: 10px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    outline: none;
+    border-radius: 25px;
+    transition: all .5s ease-in-out;
+    background-color: #22a6b3;
+    padding-right: 40px;
+    color:#fff;
+    box-sizing: border-box;
+}
+
+.search-button{
+    width: 50px;
+    height: 50px;
+    border-style: none;
+    font-size: 20px;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+    border-radius: 50%;
+    position: absolute;
+    right: 0px;
+    color:#ffffff ;
+    background-color:transparent;
+    pointer-events: painted; 
+    box-sizing: border-box; 
+}
+
+.search-button:focus ~ .input-search{
+    width: 300px;
+    border-radius: 0px;
+    background-color: transparent;
+    border-bottom:1px solid rgba(255,255,255,.5);
+    transition: all 500ms cubic-bezier(0, 0, 0.35, 2);
+    box-sizing: border-box;
+}
+
+.input-search:focus{
+    width: 300px;
+    border-radius: 0px;
+    background-color: transparent;
+    border-bottom:1px solid rgba(255,255,255,.5);
+    transition: all 500ms cubic-bezier(0, 0, 0.35, 2);
+    box-sizing: border-box;
+}

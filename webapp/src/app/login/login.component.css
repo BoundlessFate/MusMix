@@ -1,0 +1,59 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);*/
+    background-image: linear-gradient(45deg, oklch(24.28% 0.091 258.33), oklch(39.3% 0.077 254.36));
+    font-family: Arial, sans-serif;
+    color: #fff;
+}
+
+.input-field {
+    width: 300px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+.input-field label {
+    font-size: 1.2em;
+}
+
+.uname-field, .pwd-field, .submit-field {
+    margin: 10px 0;
+    position: relative;
+}
+
+.input-field input[type="text"],
+.input-field input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 1em;
+}
+
+.input-field input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #4e4376;
+    color: #fff;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.input-field input[type="submit"]:hover {
+    background: #2b5876;
+}

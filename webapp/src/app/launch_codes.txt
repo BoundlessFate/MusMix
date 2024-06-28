@@ -1,0 +1,15 @@
+How To Run Python Flask
+# CURRENTLY ROUTING FROM MAIN TO SEARCH PAGE IS BUGGED WITH PYTHON ADDITION
+---------------------------
+
+1. Install virtual environment
+$ python3 -m venv ~/musmix
+Linux: $ source ~/musmix/bin/activate
+Windows: $ source ~/musmix/Scripts/activate
+
+Install Dependencies
+(musmix)$ cd MusMix/webapp/src/app
+(musmix)$ pip install -r requirements.txt
+
+Run the App
+(musmix)$ python3 testSearch.py

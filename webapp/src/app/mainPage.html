@@ -21,9 +21,9 @@
                     <!-- Buttons -->
                     <div class="pill-buttons">
                         @for (item of [ 
-                            {title: 'Input A Song', link: 'https://google.com'},
-                            {title: 'Feedback', link: 'https://google.com'},
-                            {title: 'Login', link: 'https://google.com'},
+                            {title: 'Input A Song', link: '/searchPage'},
+                            {title: 'Feedback', link: 'https://forms.gle/oxMmEFYvoNmmER4R9'},
+                            {title: 'Login', link: '/login'},
                         ]; track item.title) {
                             <a
                                 class="pill"
@@ -62,5 +62,4 @@
         </main>
     </body>
 </html>
-<!-- Keep this at bottom of page, deals with page routing -->
-<router-outlet />
+<router-outlet></router-outlet>
