@@ -1,6 +1,5 @@
 import sys
 import spotipy
-import requests
 from spotipy.oauth2 import SpotifyClientCredentials
 n = len(sys.argv)
 assert n == 3 # If this fails then the wrong number of args is used
