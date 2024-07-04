@@ -1,13 +1,14 @@
 import sys
 import spotipy
+import requests
 from spotipy.oauth2 import SpotifyClientCredentials
 n = len(sys.argv)
 assert n == 3 # If this fails then the wrong number of args is used
 songName = sys.argv[1].replace("_"," ")
 artist=sys.argv[2].replace("_"," ")
 
-clientId = "d9afeae6b5b74514854e96dd6ad73883"
-clientSecret = "7f6556afb86445bfb1d2f7b6b1b0186c"
+clientId = "89ed1b35def340909aa9b514ed93291e"
+clientSecret = "1f50f138da1d42cd8adeedbbe904d8cd"
 authManager = SpotifyClientCredentials(client_id=clientId, client_secret=clientSecret)
 sp = spotipy.Spotify(auth_manager=authManager)
 
