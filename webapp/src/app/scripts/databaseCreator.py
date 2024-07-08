@@ -52,18 +52,20 @@ with open(fileIn, 'r') as fIn:
             songsLeft = songsPerGenre
             # Create a list of songs to skip duplicates, which happens for some reason sometimes
             songList = []
+            zeroCount = 0
             while(songsLeft > 0):
                 # Sleep for a third of a second
                 # Makes it so the code doesn't exceed the rate limit of ~180+ calls per minute
                 # Or 1 for every third of a second
                 time.sleep(0.333)
                 i = 50
-                if (songsLeft < 100):
+                if (songsLeft < 50):
                     i = songsLeft
                 keysToRemove = []
                 allSongs = dict()
                 if (songsLeft > 50):
                     songsOne = sp.search(q=f"genre:{genre}", type="track", limit=i, offset=page)
+                    time.sleep(0.333)
                     songsTwo = sp.search(q=f"genre:{genre}", type="track", limit=i, offset=page+1)
                     allSongs = songsOne
                     allSongs['tracks']['items'] = allSongs['tracks']['items'] + songsTwo['tracks']['items']
@@ -83,6 +85,13 @@ with open(fileIn, 'r') as fIn:
                 # Writes the song data for a given song from the current genre
                 writeSongData(fOut, allSongs, sp, songsLeft)
                 songsLeft -= len(allSongs['tracks']['items'])
+                # If the genre has less than the requested number of songs
+                if (len(allSongs['tracks']['items']) == 0):
+                    zeroCount += 1
+                # Since a full page could be duplicates, check 10 times to reduce wrong guesses at empty genres
+                if (zeroCount >= 10):
+                    print(genre+" had less than the requested # of songs. Fix the JSON here.")
+                    break
             line = fIn.readline()
             if (line == ""):
                 fOut.write("\t\t}\n")
