@@ -3,6 +3,30 @@
 <head>
     <title>MusMix</title>
     <link rel="stylesheet" href="./login.component.css">
+    <script>
+        async function login(event){
+            event.preventDefault(); 
+
+            const username = document.getElementById('uname').value;
+            const password = document.getElementById('pwd').value;
+
+            const response = await fetch('http://127.0.0.1:5000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+            
+            if (response.ok) {
+                alert('Login successful!');
+            } else {
+                alert('Login failed.');
+            }
+
+            console.error('Error:', error);
+        }
+    </script>
 </head>
 <body>
     <div class="input-field">
@@ -16,7 +40,7 @@
                 <input type="password" id="pwd" name="pwd">
             </div>
             <div class="submit-field">
-                <input type="submit" value="Submit">
+                <input type="submit" value="Submit" onclick="login(event)">
             </div>
         </form>
     </div>
