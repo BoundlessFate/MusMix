@@ -31,8 +31,8 @@ print(f"Energy: {features['energy']}")
 print(f"Speechiness: {features['speechiness']}")
 print(f"Valence: {features['valence']}")
 print("-----NOW SEARCHING FOR OTHER SONGS-----")
-bpmTolerance=100
-popularityMin=20
+checkedSongs=set()
+songVals = []
 for genre in genres:
     # Gather 200 songs in the same genre
     songsOne = sp.search(q=f"genre:{genre}", type="track", limit=50, offset=0)
@@ -55,7 +55,6 @@ for genre in genres:
         i += 1
     if len(songIds) > 0:
         featuresFull = featuresFull + sp.audio_features(songIds)
-    checkedSongs=set()
     for song, features in zip(allSongs['tracks']['items'], featuresFull):
         if song['name']+" "+song['artists'][0]['name'] in checkedSongs:
             continue
@@ -68,12 +67,15 @@ for genre in genres:
             continue
         if features['mode'] != features['mode']:
             continue
-        if features['tempo'] - bpmTolerance > features['tempo']:
-            continue
-        if features['tempo'] + bpmTolerance < features['tempo']:
-            continue
-        if song['popularity'] < popularityMin:
-            continue
-        # Song is good if it hit this point
-        print(f"Track Name: {song['name']}")
-        print(f"Artist: {song['artists'][0]['name']}")
+        val = (song['popularity']) * 5 + abs(features['tempo']-features['tempo'])
+        songVals.append((val, song['name']+" "+song['artists'][0]['name']))
+songVals.sort(key=lambda tup: tup[0], reverse = True)
+i = 1
+for song in songVals:
+    if (i > 10):
+        break
+    print("-----")
+    print("#"+str(i))
+    print(f"Track Name & Artist: {song[1]}")
+    print(f"Score: {song[0]}")
+    i += 1
