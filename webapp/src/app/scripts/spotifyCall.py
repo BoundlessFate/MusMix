@@ -31,25 +31,48 @@ print(f"Energy: {features['energy']}")
 print(f"Speechiness: {features['speechiness']}")
 print(f"Valence: {features['valence']}")
 print("-----NOW SEARCHING FOR OTHER SONGS-----")
-bpmTolerance=30
+bpmTolerance=100
+popularityMin=20
 for genre in genres:
-    # Gather 50 songs in the same genre
-    allSongs = sp.search(q=f"genre:{genre}", type="track", limit=50)
+    # Gather 200 songs in the same genre
+    songsOne = sp.search(q=f"genre:{genre}", type="track", limit=50, offset=0)
+    songsTwo = sp.search(q=f"genre:{genre}", type="track", limit=50, offset=1)
+    songsThree = sp.search(q=f"genre:{genre}", type="track", limit=50, offset=2)
+    songsFour = sp.search(q=f"genre:{genre}", type="track", limit=50, offset=3)
+    allSongs = songsOne
+    allSongs['tracks']['items'] = allSongs['tracks']['items'] + songsTwo['tracks']['items']
+    allSongs['tracks']['items'] = allSongs['tracks']['items'] + songsThree['tracks']['items']
+    allSongs['tracks']['items'] = allSongs['tracks']['items'] + songsFour['tracks']['items']
+    songIds = []
+    featuresFull = []
+    i = 0
     for song in allSongs['tracks']['items']:
-            # Song is good if it hit this point
-    #    print(f"Track Name: {song['name']}")
-    #   print(f"Artist: {song['artists'][0]['name']}")
+        if i >= 100:
+            featuresFull = featuresFull + sp.audio_features(songIds)
+            songIds = []
+            i = 0
+        songIds.append(song['id'])
+        i += 1
+    if len(songIds) > 0:
+        featuresFull = featuresFull + sp.audio_features(songIds)
+    checkedSongs=set()
+    for song, features in zip(allSongs['tracks']['items'], featuresFull):
+        if song['name']+" "+song['artists'][0]['name'] in checkedSongs:
+            continue
+        else:
+            checkedSongs.add(song['name']+" "+song['artists'][0]['name'])
         # Skip if song is what was searched
         if song['id'] == track['id']:
             continue
-        curFeatures = sp.audio_features(song['id'])[0]
-        if curFeatures['key'] != features['key']:
+        if features['key'] != features['key']:
             continue
-        if curFeatures['mode'] != features['mode']:
+        if features['mode'] != features['mode']:
             continue
-        if curFeatures['tempo'] - bpmTolerance > features['tempo']:
+        if features['tempo'] - bpmTolerance > features['tempo']:
             continue
-        if curFeatures['tempo'] + bpmTolerance < features['tempo']:
+        if features['tempo'] + bpmTolerance < features['tempo']:
+            continue
+        if song['popularity'] < popularityMin:
             continue
         # Song is good if it hit this point
         print(f"Track Name: {song['name']}")
