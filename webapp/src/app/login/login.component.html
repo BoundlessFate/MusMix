@@ -10,8 +10,6 @@
             const username = document.getElementById('uname').value;
             const password = document.getElementById('pwd').value;
 
-            console.log(username);
-            console.log(password);
             const response = await fetch('http://127.0.0.1:5000/login', {
                 method: 'POST',
                 headers: {
