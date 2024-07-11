@@ -34,15 +34,25 @@ print("-----NOW SEARCHING FOR OTHER SONGS-----")
 checkedSongs=set()
 songVals = []
 for genre in genres:
-    # Gather 200 songs in the same genre
-    songsOne = sp.search(q=f"genre:{genre}", type="track", limit=50, offset=0)
-    songsTwo = sp.search(q=f"genre:{genre}", type="track", limit=50, offset=1)
-    songsThree = sp.search(q=f"genre:{genre}", type="track", limit=50, offset=2)
-    songsFour = sp.search(q=f"genre:{genre}", type="track", limit=50, offset=3)
-    allSongs = songsOne
-    allSongs['tracks']['items'] = allSongs['tracks']['items'] + songsTwo['tracks']['items']
-    allSongs['tracks']['items'] = allSongs['tracks']['items'] + songsThree['tracks']['items']
-    allSongs['tracks']['items'] = allSongs['tracks']['items'] + songsFour['tracks']['items']
+    allSongs = []
+    if (len(genres) <= 2):
+        # Gather 200 songs in the same genre
+        # Makes a total of 4 calls to search endpoint, 2 to features per genre
+        songsOne = sp.search(q=f"genre:{genre}", type="track", limit=50, offset=0)
+        songsTwo = sp.search(q=f"genre:{genre}", type="track", limit=50, offset=1)
+        songsThree = sp.search(q=f"genre:{genre}", type="track", limit=50, offset=2)
+        songsFour = sp.search(q=f"genre:{genre}", type="track", limit=50, offset=3)
+        allSongs = songsOne
+        allSongs['tracks']['items'] = allSongs['tracks']['items'] + songsTwo['tracks']['items']
+        allSongs['tracks']['items'] = allSongs['tracks']['items'] + songsThree['tracks']['items']
+        allSongs['tracks']['items'] = allSongs['tracks']['items'] + songsFour['tracks']['items']
+    else:
+        # Gather 100 songs in the same genre
+        # Makes a total of 2 calls to search endpoint, 1 to features per genre
+        songsOne = sp.search(q=f"genre:{genre}", type="track", limit=50, offset=0)
+        songsTwo = sp.search(q=f"genre:{genre}", type="track", limit=50, offset=1)
+        allSongs = songsOne
+        allSongs['tracks']['items'] = allSongs['tracks']['items'] + songsTwo['tracks']['items']
     songIds = []
     featuresFull = []
     i = 0
@@ -55,7 +65,7 @@ for genre in genres:
         i += 1
     if len(songIds) > 0:
         featuresFull = featuresFull + sp.audio_features(songIds)
-    for song, features in zip(allSongs['tracks']['items'], featuresFull):
+    for song, songFeatures in zip(allSongs['tracks']['items'], featuresFull):
         if song['name']+" "+song['artists'][0]['name'] in checkedSongs:
             continue
         else:
@@ -63,11 +73,15 @@ for genre in genres:
         # Skip if song is what was searched
         if song['id'] == track['id']:
             continue
-        if features['key'] != features['key']:
+        if songFeatures['key'] != features['key']:
             continue
-        if features['mode'] != features['mode']:
+        if songFeatures['mode'] != features['mode']:
             continue
-        val = (song['popularity']) * 5 + abs(features['tempo']-features['tempo'])
+        val = (song['popularity']) * 3
+        val -= abs(songFeatures['tempo']-features['tempo'])
+        val -= abs(songFeatures['energy']-features['energy']) * 100
+        val -= abs(songFeatures['danceability']-features['danceability']) * 100
+        val -= abs(songFeatures['valence']-features['valence']) * 100
         songVals.append((val, song['name']+" "+song['artists'][0]['name']))
 songVals.sort(key=lambda tup: tup[0], reverse = True)
 i = 1
@@ -77,5 +91,5 @@ for song in songVals:
     print("-----")
     print("#"+str(i))
     print(f"Track Name & Artist: {song[1]}")
-    print(f"Score: {song[0]}")
+    print(f"Score: {int(song[0])}")
     i += 1
