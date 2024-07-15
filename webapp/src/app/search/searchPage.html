@@ -18,14 +18,13 @@
                     <!-- Buttons -->
                     <div class="pill-buttons">
                         @for (item of [ 
-
+                            {title: 'Home', link: '/'},
                             {title: 'Feedback', link: 'https://forms.gle/oxMmEFYvoNmmER4R9'},
                             {title: 'Login', link: '/login'},
                         ]; track item.title) {
                             <a
                                 class="pill"
                                 [href]="item.link"
-                                target="_blank"
                                 rel="noopener"
                             >
                                 <span>{{item.title}}</span>

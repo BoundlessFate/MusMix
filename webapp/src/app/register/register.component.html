@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <title>MusMix</title>
-    <link rel="stylesheet" href="./login.component.css">
+    <link rel="stylesheet" href="./register.component.css">
     <script>
-        async function login(event){
+        async function register(event){
             event.preventDefault(); 
 
             const username = document.getElementById('uname').value;
             const password = document.getElementById('pwd').value;
 
-            const response = await fetch('http://127.0.0.1:5000/login', {
+            const response = await fetch('http://127.0.0.1:5000/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -19,9 +19,9 @@
             });
             
             if (response.ok) {
-                alert('Login successful!');
+                alert('Register successful!');
             } else {
-                alert('Login failed.');
+                alert('Register failed.');
             }
 
             console.error('Error:', error);
@@ -65,13 +65,13 @@
                 <input type="password" id="pwd" name="pwd">
             </div>
             <div class="submit-field">
-                <input type="submit" value="Submit" onclick="login(event)">
+                <input type="submit" value="Submit" onclick="register(event)">
             </div>
         </form>
     </div>
     <div class="pill-buttons">
         @for (item of [ 
-            {title: 'Register', link: '/register'},
+            {title: 'Back To Login', link: '/login'},
         ]; track item.title) {
             <a
                 class="pill"
