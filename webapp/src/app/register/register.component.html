@@ -3,30 +3,6 @@
 <head>
     <title>MusMix</title>
     <link rel="stylesheet" href="./register.component.css">
-    <script>
-        async function register(event){
-            event.preventDefault(); 
-
-            const username = document.getElementById('uname').value;
-            const password = document.getElementById('pwd').value;
-
-            const response = await fetch('http://127.0.0.1:5000/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, password })
-            });
-            
-            if (response.ok) {
-                alert('Register successful!');
-            } else {
-                alert('Register failed.');
-            }
-
-            console.error('Error:', error);
-        }
-    </script>
 </head>
 <body>
     <div class="pill-buttons">
@@ -55,7 +31,7 @@
         }
     </div>
     <div class="input-field">
-        <form action="/action_page.php">
+        <form (submit)="register($event)">
             <div class="uname-field">
                 <label for="uname">Username:</label>
                 <input type="text" id="uname" name="uname">
