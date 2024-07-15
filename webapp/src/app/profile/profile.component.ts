@@ -27,8 +27,11 @@ export class ProfileComponent {
     }
     if (details === "") {
         // Cookie not found -- Redirect to login
-        this.router.navigate(['/']);
+        alert('Not logged in!');
+        this.router.navigate(['/login']);
+        return;
     }
+    alert('Logged In!');
     // Cookies found -- Run as normal
   }
 }
