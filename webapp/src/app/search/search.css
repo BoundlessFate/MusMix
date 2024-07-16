@@ -125,6 +125,9 @@ h2 {
 .bottom-left:hover svg {
     filter: drop-shadow(2px 2px 6px rgba(255, 255, 255, 0.75)); /* Enhanced shadow on hover */
 }
+.search-button:hover {
+    filter: drop-shadow(2px 2px 6px rgba(255, 255, 255, 0.75)); /* Enhanced shadow on hover */
+}
 
 
 .searchContent{
