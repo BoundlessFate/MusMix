@@ -9,47 +9,34 @@
             <div class="content">
                 <div class = "right-image">
                     <svg width="150vw" height = "150vh">
-                        <image xlink:href="mainpageimage.svg" width="100%" height="100%" />
+                        <image xlink:href="mainpageimage.svg" width="85%" height="85%" />
+                    </svg>
+                </div>
+                <div class = "logo"> 
+                    <svg width="15vw" height="15vh">
+                        <image xlink:href="musmixlogo.svg" width="100%" height="100%" />
                     </svg>
                 </div>
                 <div class="top-bar">
                     <!-- Logo -->
-                    <svg width="10vw" height="10vh">
-                        <image xlink:href="musmixlogo.svg" width="100%" height="100%" />
-                    </svg>
-                    <h1>MusMix</h1>
+                    <h1>   MusMix</h1>
                     <!-- Buttons -->
                     <div class="pill-buttons">
-                        @for (item of [ 
-                            {title: 'Input A Song', link: '/search'},
-                            {title: 'Feedback', link: 'https://forms.gle/oxMmEFYvoNmmER4R9'},
-                            {title: 'Login', link: '/login'},
-                            {title: 'Profile', link: '/profile'},
-                        ]; track item.title) {
-                            <a
-                                class="pill"
-                                [href]="item.link"
-                                rel="noopener"
-                            >
-                                <span>{{item.title}}</span>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    height="2vh"
-                                    viewBox="0 -960 960 960"
-                                    width="2vw"
-                                    fill="currentColor"
-                                >
-                                    <path
-                                        d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"
-                                    />
-                                </svg>
-                            </a>
-                        }
+                        <a class="pill" href="/searchPage" target="_blank" rel="noopener">
+                            <span>Input A Song</span>
+                        </a>
+                        <a class="pill" href="https://forms.gle/oxMmEFYvoNmmER4R9" target="_blank" rel="noopener">
+                            <span>Feedback</span>
+                        </a>
+                        <a class="pill" href="/login" target="_blank" rel="noopener">
+                            <span>Login</span>
+                        </a>
                     </div>
+                    
                 </div>
                 <div class = "left-bit">
-                    <h1>Fantastic Beats & Where To Drop Them</h1>
-                    <h2>MusMix allows you to find new songs that sound similar to the one you select</h2>
+                    <h2>Fantastic Beats & Where To Drop Them</h2>
+                    <h3>MusMix allows you to find new songs that sound similar to the one you already listen to</h3>
                 </div>
                 <div class = "bottom-left">
                     <a href="https://github.com/BoundlessFate/MusMix/">
