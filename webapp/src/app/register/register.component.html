@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <title>MusMix</title>
-    <link rel="stylesheet" href="./login.component.css">
+    <link rel="stylesheet" href="./register.component.css">
 </head>
 <body>
     <div class="pill-buttons">
@@ -31,7 +31,7 @@
         }
     </div>
     <div class="input-field">
-        <form (submit)="login($event)">
+        <form (submit)="register($event)">
             <div class="uname-field">
                 <label for="uname">Username:</label>
                 <input type="text" id="uname" name="uname">
@@ -41,13 +41,13 @@
                 <input type="password" id="pwd" name="pwd">
             </div>
             <div class="submit-field">
-                <input type="submit" value="Submit" onclick="login(event)">
+                <input type="submit" value="Submit" onclick="register(event)">
             </div>
         </form>
     </div>
     <div class="pill-buttons">
         @for (item of [ 
-            {title: 'Register', link: '/register'},
+            {title: 'Back To Login', link: '/login'},
         ]; track item.title) {
             <a
                 class="pill"
