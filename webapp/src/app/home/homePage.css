@@ -57,6 +57,10 @@ h2 {
             Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
             "Segoe UI Symbol";
         }
+        .pill:hover  {
+            text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.75); /* Enhance shadow on hover */
+        }
+        
 
 main {
     width: 100%;
@@ -137,6 +141,10 @@ main {
     top: 85%;
     left: 3%;
 }
+.bottom-left:hover svg {
+    filter: drop-shadow(2px 2px 6px rgba(255, 255, 255, 0.75)); /* Enhanced shadow on hover */
+}
+
 .right-image {
     position: absolute;
     top: 6%;
