@@ -70,6 +70,19 @@ h2 {
         "Segoe UI Symbol";
     }
 
+    h5{ 
+        font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
+        font-size: 1rem;
+        color: var(--cream);
+        font-weight: 500;
+        line-height: 100%;
+        justify-content: center;
+
+    }
+
+    
 
 
     
@@ -205,4 +218,55 @@ h2 {
     position: absolute;
     top: 6%;
     left: 0%;
+}
+.profilePic{
+    position:absolute;
+    top:30%;
+    left:20%;
+
+}
+.username {
+    position: absolute;
+    top: 33%;
+    left: 33%;
+    background: color-mix(in srgb, var(--pill-accent) 5%, transparent);
+    width: 50%;
+    height: 10%;
+    border-radius: 5%;
+    border: 2px solid #FFF;
+    display: flex;
+
+    align-items: center;
+    padding-left: 1%;
+}
+
+.username h5 {
+    margin: 0;
+}
+.description{
+    position:absolute;
+    top:46%;
+    left:33%;
+    background: color-mix(in srgb, var(--pill-accent) 5%, transparent);
+    width: 50%;
+    padding-left: 1%;
+    height:20%;
+    border-radius: 5%;
+    border: 2px solid #FFF;
+    cursor: text;
+    
+}
+.description h5 {
+    margin: 0;
+    position: absolute;
+    top:17%;
+}
+.description .placeholder {
+    color: #888; /* Placeholder text color */
+}
+
+.description:empty::before {
+    content: attr(data-placeholder);
+    color: #888; /* Placeholder text color */
+    pointer-events: none; /* Prevents the placeholder from being clicked */
 }
