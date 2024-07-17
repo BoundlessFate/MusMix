@@ -15,7 +15,7 @@ with app.app_context():
     collection = db['userdata']
 
 
-@app.route('/login', methods=['POST','GET'])
+@app.route('/login', methods=['POST','GET','OPTIONS'])
 def user_login():
     print(1111)
     if request.method == "POST":
@@ -33,6 +33,13 @@ def user_login():
         else:
             print("Login success")
             return jsonify({"message": "Login success"}), 200
+    if request.method == "OPTIONS":
+        # Handle the OPTIONS request
+        response = app.make_response('')
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
+        return response
 
 if __name__ == '__main__':
     app.run(debug=True)

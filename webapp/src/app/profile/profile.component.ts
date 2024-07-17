@@ -6,9 +6,10 @@ import { Router } from '@angular/router';
   selector: 'app-profile',
   standalone: true,
   imports: [RouterOutlet],
-  templateUrl: './profilePage.html',
-  styleUrl: './profilePage.css'
+  templateUrl: './profile.html',
+  styleUrls: ['./profile.css'] // Corrected from 'styleUrl' to 'styleUrls'
 })
+
 export class ProfileComponent {
   title = 'MusMix';
   constructor(private router: Router) { }
