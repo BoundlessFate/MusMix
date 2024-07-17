@@ -15,7 +15,7 @@ with app.app_context():
     collection = db['userdata']
 
 
-@app.route('/register', methods=['POST','GET'])
+@app.route('/register', methods=['POST','GET', 'OPTIONS'])
 def user_register():
     print(1111)
     if request.method == "POST":
@@ -43,6 +43,13 @@ def user_register():
         else:
             print("User is already registered")
             return jsonify({"message": "user is already registered"}), 404
+    if request.method == "OPTIONS":
+        # Handle the OPTIONS request
+        response = app.make_response('')
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
+        return response
 
 if __name__ == '__main__':
     app.run(debug=True)
