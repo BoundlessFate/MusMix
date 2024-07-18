@@ -203,6 +203,9 @@ h2 {
     transition: all 500ms cubic-bezier(0, 0, 0.35, 2);
     box-sizing: border-box;
 }
+.outputString {
+    white-space: pre-line;
+}
 
 .input-search:focus{
     width: 300px;
