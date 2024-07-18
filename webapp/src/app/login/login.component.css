@@ -1,18 +1,19 @@
-body, html {
+body {
     display: flex;
     flex-direction: column;
-    margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    display: flex;
+    position: absolute;
+    top: -1%;
+    left: -0.56%;
+    background-image: linear-gradient(45deg, oklch(24.28% 0.091 258.33), oklch(39.3% 0.077 254.36));
+    overflow: hidden;
     justify-content: center;
     align-items: center;
-    /*background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);*/
-    background-image: linear-gradient(45deg, oklch(24.28% 0.091 258.33), oklch(39.3% 0.077 254.36));
     font-family: Arial, sans-serif;
     color: #fff;
-}
+  }
 
 :host {
     --oxford-blue: oklch(24.28% 0.091 258.33);
@@ -47,6 +48,18 @@ body, html {
     margin: 10px 0;
     position: relative;
 }
+
+.uname-field input[type="text"], .pwd-field input[type="password"] {
+    width: calc(100% - 20px); /* adjust width if needed */
+    padding: 5px 10px; /* reduce right padding */
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 1em;
+  }
+  
 
 .input-field input[type="text"],
 .input-field input[type="password"] {
@@ -83,7 +96,6 @@ body, html {
     flex-wrap: nowrap;
     gap: 1.25rem;
     margin: 2.5rem;
-    margin-left:5rem;
 }
 
 .pill {
@@ -104,7 +116,6 @@ body, html {
     line-height: 1.4rem;
     letter-spacing: -0.00875rem;
     text-decoration: none;
-    margin-left:5rem;
 }
 
 .pill:hover {
