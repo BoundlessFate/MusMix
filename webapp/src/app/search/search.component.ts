@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 
@@ -14,16 +14,19 @@ import { RouterOutlet } from '@angular/router';
 export class SearchComponent {
   title = 'Search Page';
   username = "NEW USER"
+  ngOnInit() {
+    this.checkForSubmission();
+  }
+  async checkForSubmission() {
+    console.log("hi");
+    window.addEventListener('DOMContentLoaded', (event) => {
+      const searchInput = document.getElementById('input') as HTMLInputElement;
+  
+      searchInput.addEventListener('keydown', (e: KeyboardEvent) => {
+          if (e.key === 'Enter') {
+              alert('You have submitted a song with query: ' + searchInput.value);
+          }
+      });
+    });
+  }
 }
-
-console.log("hi");
-window.addEventListener('DOMContentLoaded', (event) => {
-  const searchInput = document.getElementById('input') as HTMLInputElement;
-
-  searchInput.addEventListener('keydown', (e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
-          alert('You have submitted a song with query: ' + searchInput.value);
-      }
-  });
-});
-
