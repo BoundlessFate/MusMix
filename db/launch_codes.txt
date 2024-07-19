@@ -1,0 +1,14 @@
+How To Run Python Flask
+---------------------------
+
+1. Install virtual environment
+$ python3 -m venv ~/musmix
+Linux: $ source ~/musmix/bin/activate
+Windows: $ source ~/musmix/Scripts/activate
+
+Install Dependencies
+(musmix)$ cd MusMix/webapp/src/app
+(musmix)$ pip install -r requirements.txt
+
+Run the App (replace `login.py` with any other Python Flask file)
+(musmix)$ python3 login.py
