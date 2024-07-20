@@ -53,6 +53,15 @@ export class SearchComponent {
         const data = await response.json();
       this.finalString = data.message;
       alert("success");
+      (document.getElementById('songInput') as HTMLInputElement).style.display = 'none';
+      (document.getElementById('artistInput')as HTMLInputElement).style.display = 'none';
+      (document.getElementById('caption') as HTMLInputElement).style.display = 'none';
+      const caption = document.getElementById('caption') as HTMLInputElement;
+
+
+      caption.innerHTML  = `<h2><i>Showing similar songs to "${name}" by ${artist}</i></h2>`;
+      caption.style.display = 'block';
+      (document.getElementById('output') as HTMLInputElement).style.display = 'flex';
     } catch (error) {
       console.error('Error:', error);
       alert("error");

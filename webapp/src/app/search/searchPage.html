@@ -56,20 +56,18 @@
         </main>
         <div class = "searchContent">
 
-            <div class = "caption">
+            <div class = "caption" id = "caption">
                 <h2><i>Let's make some music!</i></h2>
             </div>
     
             <div class = "search-bar">
-                <button id = "search-button" class="search-button"><i class="fa fa-search"></i></button>
+                <!-- <button id = "search-button" class="search-button"><i class="fa fa-search"></i></button> -->
                 <input type="text" id="songInput" class="input-search" placeholder="Input a song">
-            </div>
-            <div class = "search-bar">
-                <button id = "search-button" class="search-button"><i class="fa fa-search"></i></button>
                 <input type="text" id="artistInput" class="input-search" placeholder="Input an artist">
             </div>
         </div>
-       <div class = "output">
+       <div class = "output" id="output">
+            <br>
             <p class = "outputString">{{ finalString }}</p>
         </div>
     </body>
