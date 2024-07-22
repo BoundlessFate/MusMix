@@ -44,12 +44,12 @@ body {
     font-size: 1.2em;
 }
 
-.uname-field, .pwd-field, .submit-field {
+.uname-field, .pwd-field, .conpwd-field, .submit-field {
     margin: 10px 0;
     position: relative;
 }
 
-.uname-field input[type="text"], .pwd-field input[type="password"] {
+.uname-field input[type="text"], .pwd-field input[type="password"], .conpwd-field input[type="password"] {
     width: calc(100% - 20px); /* adjust width if needed */
     padding: 5px 10px; /* reduce right padding */
     margin-top: 10px;
