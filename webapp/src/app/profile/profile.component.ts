@@ -34,5 +34,12 @@ export class ProfileComponent {
     }
     alert('Logged In!');
     // Cookies found -- Run as normal
+    const user = document.getElementById('username') as HTMLInputElement;
+    let cleanedStr = details.replace(/^["']|["']$/g, ''); // Remove the quotes from the beginning and end
+    let parts = cleanedStr.split(" ").filter(part => part !== ""); // Split by spaces and filter out empty parts
+    let firstPart = parts[0];   
+    user.innerHTML  = `<h2><i>"${firstPart}" </i></h2>`;
+    user.style.display = 'block';
+    //(document.getElementById('output') as HTMLInputElement).style.display = 'flex';
   }
 }
