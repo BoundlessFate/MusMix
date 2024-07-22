@@ -3,6 +3,7 @@
 <head>
     <title>MusMix</title>
     <link rel="stylesheet" href="./register.component.css">
+
     <script>
         async function register(event){
             event.preventDefault(); 
@@ -61,7 +62,7 @@
         }
     </div>
     <div class="input-field">
-        <form action="/action_page.php">
+        <form (submit)="register($event)">
             <div class="uname-field">
                 <label for="uname">Username:</label>
                 <input type="text" id="uname" name="uname">

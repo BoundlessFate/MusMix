@@ -13,7 +13,7 @@ sp = spotipy.Spotify(auth_manager=authManager)
 
 results = sp.search(q=f"track:{songName} artist:{artist}", type='track')
 track = results['tracks']['items'][0]
-genres = sp.artist(sp.search(q=artist, type='artist', limit=1)['artists']['items'][0]['id'])['genres']
+genres = sp.artist(sp.search(q=track['artists'][0]['name'], type='artist', limit=1)['artists']['items'][0]['id'])['genres']
 features = sp.audio_features(track['id'])[0]
 # Extract the first track (assuming it's the most relevant match)
 

@@ -1,5 +1,4 @@
 How To Run Python Flask
-# CURRENTLY ROUTING FROM MAIN TO SEARCH PAGE IS BUGGED WITH PYTHON ADDITION
 ---------------------------
 
 1. Install virtual environment
@@ -11,5 +10,5 @@ Install Dependencies
 (musmix)$ cd MusMix/webapp/src/app
 (musmix)$ pip install -r requirements.txt
 
-Run the App
-(musmix)$ python3 testSearch.py
+Run the App (replace `login.py` with any other Python Flask file)
+(musmix)$ python3 login.py
