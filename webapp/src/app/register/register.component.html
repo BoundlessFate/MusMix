@@ -3,6 +3,36 @@
 <head>
     <title>MusMix</title>
     <link rel="stylesheet" href="./register.component.css">
+
+    <script>
+        async function register(event){
+            event.preventDefault(); 
+
+            const username = document.getElementById('uname').value;
+            const password = document.getElementById('pwd').value;
+            const confirmpassword = document.getElementById('conpwd').value;
+
+            if(password === confirmpassword){
+                const response = await fetch('http://127.0.0.1:5000/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                if (response.ok) {
+                    alert('Register successful!');
+                } else {
+                    alert('Register failed.');
+                }
+
+                console.error('Error:', error);
+            }else {
+                alert('Password and Confirm Password do not match');
+            }
+        }
+    </script>
 </head>
 <body>
     <h1>Join the MusMix Family Today</h1>
@@ -41,8 +71,12 @@
                 <label for="pwd">Password:</label>
                 <input type="password" id="pwd" name="pwd">
             </div>
+            <div class="conpwd-field">
+                <label for="conpwd">Confirm Password:</label>
+                <input type="password" id="conpwd" name="conpwd">
+            </div>
             <div class="submit-field">
-                <input type="submit" value="Submit" onclick="register(event)">
+                <input type="submit" value="Register" onclick="register(event)">
             </div>
         </form>
     </div>
