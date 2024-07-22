@@ -7,29 +7,17 @@
 <body>
     <h1>Welcome Back, Login Here</h1>
     <div class="pill-buttons">
-        @for (item of [ 
-            {title: 'Home', link: '/'},
-            {title: 'Feedback', link : 'https://forms.gle/oxMmEFYvoNmmER4R9'}
-        ]; track item.title) {
-            <a
-                class="pill"
-                [href]="item.link"
-                rel="noopener"
-            >
-                <span>{{item.title}}</span>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="2vh"
-                    viewBox="0 -960 960 960"
-                    width="2vw"
-                    fill="currentColor"
-                >
-                    <path
-                        d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"
-                    />
-                </svg>
-            </a>
-        }
+        <!-- @for (item of [ 
+
+            {title: 'Feedback', link: 'https://forms.gle/oxMmEFYvoNmmER4R9'},
+            {title: 'Login', link: '/login'},
+        ]; track item.title) { -->
+        <a class="pill" href="/" rel="noopener">
+            <span>Home</span>
+        </a>
+        <a class="pill" href="https://forms.gle/oxMmEFYvoNmmER4R9" rel="noopener">
+            <span>Feedback</span>
+        </a>
     </div>
     <div class="input-field">
         <form (submit)="login($event)">
@@ -47,28 +35,14 @@
         </form>
     </div>
     <div class="pill-buttons">
-        @for (item of [ 
-            {title: 'Register', link: '/register'},
-        ]; track item.title) {
-            <a
-                class="pill"
-                [href]="item.link"
-                rel="noopener"
-            >
-                <span>{{item.title}}</span>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="2vh"
-                    viewBox="0 -960 960 960"
-                    width="2vw"
-                    fill="currentColor"
-                >
-                    <path
-                        d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"
-                    />
-                </svg>
-            </a>
-        }
+        <!-- @for (item of [ 
+
+            {title: 'Feedback', link: 'https://forms.gle/oxMmEFYvoNmmER4R9'},
+            {title: 'Login', link: '/login'},
+        ]; track item.title) { -->
+        <a class="pill" href="/register" rel="noopener">
+            <span>Back to Register</span>
+        </a>
     </div>
 </body>
 </html>
