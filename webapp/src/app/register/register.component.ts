@@ -17,7 +17,12 @@ export class RegisterComponent {
     event.preventDefault(); 
     const username = (document.getElementById('uname') as HTMLInputElement).value;
     const password = (document.getElementById('pwd') as HTMLInputElement).value;
+    const confirmpassword = (document.getElementById('conpwd') as HTMLInputElement).value;
     try {
+      if (confirmpassword != password) {
+        alert('Password and Confirm Password Do Not Match!');
+        window.location.reload();
+      }
       const response = await fetch('http://127.0.0.1:5001/register', {
           method: 'POST',
           headers: {

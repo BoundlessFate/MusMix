@@ -15,24 +15,23 @@ with app.app_context():
     collection = db['userdata']
 
 
-@app.route('/login', methods=['POST','GET','OPTIONS'])
-def user_login():
+@app.route('/getProfileData', methods=['POST','GET', 'OPTIONS'])
+def get_data():
     if request.method == "POST":
         data = request.get_json()
-        username = data.get('username')
-        password = data.get('password')
-        auth = sha256.generate_hash(username + password).hex()
+        details = data.get('details')
+        detailsArr = details.split()
+        username = detailsArr[0]
+        password = detailsArr[1]
         result = collection.find_one({'username': username})
+        # Result being none should really never happen since you already signed in but its good to check
         if result is None:
-            print("Incorrect username or password")
-            return jsonify({"message": "Incorrect username or password"}), 404
+            return jsonify({"message": "User could not be found"}), 404
         else:
-            if result["auth"] == auth:
-                print("Login success")
-                return jsonify({"message": "Login success"}), 200
-            else:
-                print("Incorrect username or password")
-                return jsonify({"message": "Incorrect username or password"}), 404
+            if "description" in result.keys():
+                print(result["description"])
+                return jsonify({"message": [result["description"]]}), 202
+            return jsonify({"message": "Description not set"}), 404
     if request.method == "OPTIONS":
         # Handle the OPTIONS request
         response = app.make_response('')
@@ -42,4 +41,4 @@ def user_login():
         return response
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5004)

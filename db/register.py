@@ -17,19 +17,16 @@ with app.app_context():
 
 @app.route('/register', methods=['POST','GET', 'OPTIONS'])
 def user_register():
-    print(1111)
     if request.method == "POST":
-        print(2222222)
         data = request.get_json()
         username = data.get('username')
         password = data.get('password')
-        print(username)
-        print(password)
         auth = sha256.generate_hash(username + password).hex()
         data = {
+            'username': username,
             'auth': auth
         }
-        result = collection.find_one({'auth': auth})
+        result = collection.find_one({'username': username})
         if result is None:
             # User is not in the system yet, continue with register
             insert_result = collection.insert_one(data)
@@ -41,8 +38,8 @@ def user_register():
                 print("User is registered")
                 return jsonify({"message": "User is registered"}), 202
         else:
-            print("User is already registered")
-            return jsonify({"message": "user is already registered"}), 404
+            print("Username is already in use")
+            return jsonify({"message": "Username is already in use"}), 404
     if request.method == "OPTIONS":
         # Handle the OPTIONS request
         response = app.make_response('')

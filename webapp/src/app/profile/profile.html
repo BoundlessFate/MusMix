@@ -39,7 +39,7 @@
                <div class = "username">
                     <h5>Username</h5>
                </div>
-                <textarea type="text" id="firstName" class="description" placeholder="Description"></textarea>
+                <textarea type="text" id="description" class="description" placeholder="Description"></textarea>
                 <div class = "bottom-left">
                     <a href="https://github.com/BoundlessFate/MusMix/" target="_blank">
                         <svg width="7vw" height="7vh">
@@ -47,6 +47,11 @@
                         </svg>
                     </a>
                 </div>
+                <form (submit)="setProfileData($event)">
+                    <div class="submit-field">
+                        <input type="submit" value="Set Data" onclick="setProfileData(event)">
+                    </div>
+                </form>
             </div>
         </main>
     </body>

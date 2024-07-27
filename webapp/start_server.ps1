@@ -3,6 +3,8 @@ Start-Process "cmd.exe" -ArgumentList "/c ng serve" -NoNewWindow
 Start-Process "cmd.exe" -ArgumentList "/c python ../db/login.py" -NoNewWindow
 Start-Process "cmd.exe" -ArgumentList "/c python ../db/register.py" -NoNewWindow
 Start-Process "cmd.exe" -ArgumentList "/c python ../db/search.py" -NoNewWindow
+Start-Process "cmd.exe" -ArgumentList "/c python ../db/setProfileData.py" -NoNewWindow
+Start-Process "cmd.exe" -ArgumentList "/c python ../db/getProfileData.py" -NoNewWindow
 
 # Wait for a key to be pressed before exiting out of all the above commands
 Write-Host "Press any key to continue..."
