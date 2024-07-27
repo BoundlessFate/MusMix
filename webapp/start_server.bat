@@ -5,6 +5,8 @@ start /B ng serve
 start /B python ../db/login.py
 start /B python ../db/register.py
 start /B python ../db/search.py
+start /B python ../db/setProfileData.py
+start /B python ../db/getProfileData.py
 
 REM wait for a key to be pressed before exiting out of all the above commands
 pause

@@ -293,6 +293,27 @@ h2 {
     pointer-events: none; /* Prevents the placeholder from being clicked */
 }
 
+.submit-field {
+    margin: 10px 0;
+    position:absolute;
+    top:75%;
+    left:40%;
+    width: 300px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #4e4376;
+    color: #fff;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-align: center;
+}
+
+.submit-field:hover {
+    background: #2b5876;
+}
+
 .custom-button {
     display: flex;
     --pill-accent: var(--cream);
