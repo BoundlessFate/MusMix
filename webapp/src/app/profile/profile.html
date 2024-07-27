@@ -36,8 +36,14 @@
                <!-- <div class = "profilePic">
                     <img src="https://anitawatkins.com/wp-content/uploads/2016/02/Generic-Profile-1600x1600.png" style="width: 100px; height: 100px; border-radius: 50%;">
                </div> -->
+               <div class = "username-label"> 
+                <h5>Username:</h5>
+               </div>
                <div class = "username" id = "username">
                     <h5>Username</h5>
+               </div>
+               <div class = "description-label"> 
+                    <h5>Description:</h5>
                </div>
                 <textarea type="text" id="description" class="description" placeholder="Description"></textarea>
                 <div class = "bottom-left">
@@ -48,9 +54,7 @@
                     </a>
                 </div>
                 <form (submit)="setProfileData($event)">
-                    <div class="submit-field">
-                        <input type="submit" value="Set Data" onclick="setProfileData(event)">
-                    </div>
+                    <input type="submit" value="Set Data" class = "setDescription" onclick="setProfileData(event)">
                 </form>
             </div>
 
