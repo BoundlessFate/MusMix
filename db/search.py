@@ -107,7 +107,13 @@ def user_search():
         if len(songVals)!=0:
             # THIS IS THE CODE TO RUN WHEN SONGS FOUND
             print("Songs are found")
-            return jsonify({"message": finalMessage}), 202
+            response = {
+                "message": finalMessage,
+                "artist": track['artists'][0]['name'],
+                "song": track['name']
+            }
+            
+            return jsonify(response), 202
         else:
             # 0 songs are returned
             print("User is already registered")
