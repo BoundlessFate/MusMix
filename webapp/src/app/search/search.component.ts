@@ -59,7 +59,7 @@ export class SearchComponent {
       const caption = document.getElementById('caption') as HTMLInputElement;
 
 
-      caption.innerHTML  = `<h2><i>Showing similar songs to "${name}" by ${artist}</i></h2>`;
+      caption.innerHTML  = `<h2><i>Showing similar songs to "${data.song}" by ${data.artist}</i></h2>`;
       caption.style.display = 'block';
       (document.getElementById('output') as HTMLInputElement).style.display = 'flex';
     } catch (error) {
