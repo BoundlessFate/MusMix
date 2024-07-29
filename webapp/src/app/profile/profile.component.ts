@@ -28,7 +28,7 @@ export class ProfileComponent {
       if (c.indexOf(cookieName) === 0) { details = c.substring(cookieName.length, c.length); }
     }
     try {
-      const response = await fetch('http://127.0.0.1:5004/getProfileData', {
+      const response = await fetch('http://127.0.0.1:80/getProfileData', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ export class ProfileComponent {
       if (c.indexOf(cookieName) === 0) { details = c.substring(cookieName.length, c.length); }
     }
     try {
-      const response = await fetch('http://127.0.0.1:5003/setProfileData', {
+      const response = await fetch('http://127.0.0.1:80/setProfileData', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
