@@ -27,7 +27,9 @@ def user_search():
 
         # Print some basic information about the track
         print(f"Track Name: {track['name']}")
+        print(f"Album: {track['album']['artists'][0]['href']}")
         print(f"Artist: {track['artists'][0]['name']}")
+        print(f"Image: {track['album']['images'][0]['height']}")
         print(f"Genres: {genres}")
         print("-----FEATURES-----")
         print(f"BPM: {features['tempo']}")
@@ -74,6 +76,7 @@ def user_search():
             if len(songIds) > 0:
                 featuresFull = featuresFull + sp.audio_features(songIds)
             for song, songFeatures in zip(allSongs['tracks']['items'], featuresFull):
+                # print("song:",song)
                 if song['name']+" "+song['artists'][0]['name'] in checkedSongs:
                     continue
                 else:
@@ -90,10 +93,27 @@ def user_search():
                 val -= abs(songFeatures['energy']-features['energy']) * 100
                 val -= abs(songFeatures['danceability']-features['danceability']) * 100
                 val -= abs(songFeatures['valence']-features['valence']) * 100
-                songVals.append((val, song['name']+" "+song['artists'][0]['name']))
+                songVals.append((
+                    val,
+                    f'''
+                    <img src="{song["album"]["images"][0]["url"]}" style="width: 10%; height: auto;">
+                    <h3>{song["name"]}</h3>
+                    <h3><i>{song["artists"][0]["name"]}</i></h3>
+                    '''
+                ))
+                # songVals.append((str(val)+"<strong> "+ song['name']+"</strong> <i>"+song['artists'][0]['name']+"</i>"))
         songVals.sort(key=lambda tup: tup[0], reverse = True)
         i = 1
-        finalMessage = ""
+        finalMessage1 = ""
+        finalMessage2 = ""
+        finalMessage3 = ""
+        finalMessage4 = ""
+        finalMessage5 = ""
+        finalMessage6 = ""
+        finalMessage7 = ""
+        finalMessage8 = ""
+        finalMessage9 = ""
+        finalMessage10 = ""
         for song in songVals:
             if (i > 10):
                 break
@@ -101,16 +121,46 @@ def user_search():
             print("#"+str(i))
             print(f"Track Name & Artist: {song[1]}")
             print(f"Score: {int(song[0])}")
-            finalMessage += "#"+str(i)+": "
-            finalMessage += song[1] +"\n"
+            if i==1:
+                finalMessage1 = song[1] +"\n"
+            elif i==2:
+                finalMessage2 = song[1] +"\n"
+            elif i==3:
+                finalMessage3 =  song[1] +"\n"
+            elif i==4:
+                finalMessage4 = song[1] +"\n"
+            elif i==5:
+                finalMessage5 = song[1] +"\n"
+            elif i==6:
+                finalMessage6 = song[1] +"\n"
+            elif i==7:
+                finalMessage7 = song[1] +"\n"
+            elif i==8:
+                finalMessage8 = song[1] +"\n"
+            elif i==9:
+                finalMessage9 = song[1] +"\n"
+            elif i==10:
+                finalMessage10 =  song[1] +"\n"
+
+            
             i += 1
         if len(songVals)!=0:
             # THIS IS THE CODE TO RUN WHEN SONGS FOUND
             print("Songs are found")
             response = {
-                "message": finalMessage,
+                "m1": finalMessage1,
+                "m2": finalMessage2,
+                "m3": finalMessage3,
+                "m4": finalMessage4,
+                "m5": finalMessage5,
+                "m6": finalMessage6,
+                "m7": finalMessage7,
+                "m8": finalMessage8,
+                "m9": finalMessage9,
+                "m10": finalMessage10,
                 "artist": track['artists'][0]['name'],
-                "song": track['name']
+                "song": track['name'],
+                "album": track['album']['artists'][0]['href']
             }
             
             return jsonify(response), 202
