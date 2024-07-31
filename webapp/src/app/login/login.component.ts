@@ -19,7 +19,7 @@ export class LoginComponent {
     const username = (document.getElementById('uname') as HTMLInputElement).value;
     const password = (document.getElementById('pwd') as HTMLInputElement).value;
     try {
-        const response = await fetch('http://127.0.0.1:5000/login', {
+        const response = await fetch('http://198.199.84.208:5000/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -4,6 +4,8 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pymongo
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
 from sha import sha256
 import dbConnection
 
