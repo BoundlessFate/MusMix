@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "baseHref": "/MusMix/",
             "outputPath": "dist/webapp",
             "index": "src/index.html",
             "browser": "src/main.ts",
