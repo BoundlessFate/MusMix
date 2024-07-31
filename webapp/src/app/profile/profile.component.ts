@@ -28,7 +28,7 @@ export class ProfileComponent {
       if (c.indexOf(cookieName) === 0) { details = c.substring(cookieName.length, c.length); }
     }
     try {
-      const response = await fetch('http://198.199.84.208:5000/getProfileData', {
+      const response = await fetch('https://198.199.84.208:5000/getProfileData', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ export class ProfileComponent {
       if (c.indexOf(cookieName) === 0) { details = c.substring(cookieName.length, c.length); }
     }
     try {
-      const response = await fetch('http://198.199.84.208:5000/setProfileData', {
+      const response = await fetch('https://198.199.84.208:5000/setProfileData', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
