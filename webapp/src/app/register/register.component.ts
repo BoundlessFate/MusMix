@@ -23,7 +23,7 @@ export class RegisterComponent {
         alert('Password and Confirm Password Do Not Match!');
         window.location.reload();
       }
-      const response = await fetch('http://198.199.84.208:5000/register', {
+      const response = await fetch('https://198.199.84.208:5000/register', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
