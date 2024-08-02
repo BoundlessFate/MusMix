@@ -42,7 +42,7 @@ export class SearchComponent {
       const artist = (document.getElementById('artistInput') as HTMLInputElement).value;
       console.log(name)
       console.log(artist)
-      const response = await fetch('https://198.199.84.208:5000/search', {
+      const response = await fetch('http://127.0.0.1:5000/search', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
