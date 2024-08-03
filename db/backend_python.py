@@ -13,8 +13,10 @@ import os
 app = Flask(__name__)
 CORS(app)
 # Folder for the photos to be MusMix/uploads
-UPLOAD_FOLDER = '../uploads'
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+UPLOAD_FOLDER = '/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
 
 client = None
 collection = None
@@ -25,6 +27,9 @@ with app.app_context():
 
 @app.route('/uploads/<filename>')
 def download_file(filename):
+    print(os.listdir(app.config['UPLOAD_FOLDER']))
+    print(app.config['UPLOAD_FOLDER'])
+    print(filename)
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename, as_attachment=True)
 
@@ -47,7 +52,7 @@ def get_data():
                 response["description"] = result["description"]
                 print(result["description"])
             if "photo" in result.keys():
-                response["photo"] = f"../uploads/{result["photo"]}"
+                response["photo"] = result["photo"]
             return jsonify(response), 202
 
     if request.method == "OPTIONS":
@@ -334,8 +339,7 @@ def upload_photo():
         else:
             # Save the file under /uploads in the server
             filename = file.filename
-            file_path = os.path.join(UPLOAD_FOLDER, filename)
-            file.save(f'../uploads/{filename}')
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             document_id = result['_id']
             addDesc = {
                 '$set': {
