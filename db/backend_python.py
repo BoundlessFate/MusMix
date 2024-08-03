@@ -23,7 +23,7 @@ with app.app_context():
     db = dbConnection.connect_mongo()
     collection = db['userdata']
 
-@app.route('/../uploads/<filename>')
+@app.route('/uploads/<filename>')
 def download_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename, as_attachment=True)
