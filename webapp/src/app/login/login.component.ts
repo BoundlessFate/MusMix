@@ -19,7 +19,7 @@ export class LoginComponent {
     const username = (document.getElementById('uname') as HTMLInputElement).value;
     const password = (document.getElementById('pwd') as HTMLInputElement).value;
     try {
-        const response = await fetch('https://198.199.84.208:5000/login', {
+        const response = await fetch('https://musmix.site/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
