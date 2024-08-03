@@ -8,6 +8,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from sha import sha256
 import dbConnection
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -18,6 +19,44 @@ db = None
 with app.app_context():
     db = dbConnection.connect_mongo()
     collection = db['userdata']
+
+# uploadPhoto
+@app.route('/uploadPhoto', methods=['POST','GET', 'OPTIONS'])
+def upload_photo():
+    if request.method == "POST":
+        UPLOAD_FOLDER = os.path.join(os.getcwd(), 'photos')
+        app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+        os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+        if 'file' not in request.files:
+            return jsonify({"message": "no file sent to flask"}), 404
+        else:
+            file = request.files['file']
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+            details = request.get_json().get('details')
+            detailsArr = details.split()
+            username = detailsArr[0]
+            password = detailsArr[1]
+            result = collection.find_one({'username': username})
+            # Result being none should really never happen since you already signed in but its good to check
+            if result is None:
+                return jsonify({"message": "User could not be found"}), 404
+            else:
+                document_id = result['_id']
+                addDesc = {
+                    '$set': {
+                        'photo': file.filename
+                    }
+                }
+                collection.update_one({'_id': document_id}, addDesc)
+                return jsonify({"message": "Data successfully set"}), 202
+    if request.method == "OPTIONS":
+        # Handle the OPTIONS request
+        response = app.make_response('')
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
+        return response
+
 
 # getProfileData
 @app.route('/getProfileData', methods=['POST','GET', 'OPTIONS'])
@@ -307,4 +346,4 @@ def set_data():
         return response
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000, ssl_context='adhoc')
+    app.run(debug=True, port=5000)
