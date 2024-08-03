@@ -1,16 +1,20 @@
 # Due to port restrictions, these all run off the same app (so the same port could be used)
 # They use separate routing though so it should all be fine anyway.
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import pymongo
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from sha import sha256
 import dbConnection
+import os
 
 app = Flask(__name__)
 CORS(app)
+# Folder for the photos to be MusMix/uploads
+UPLOAD_FOLDER = '../uploads'
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 client = None
 collection = None
@@ -18,6 +22,11 @@ db = None
 with app.app_context():
     db = dbConnection.connect_mongo()
     collection = db['userdata']
+
+@app.route('/../uploads/<filename>')
+def download_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'],
+                               filename, as_attachment=True)
 
 # getProfileData
 @app.route('/getProfileData', methods=['POST','GET', 'OPTIONS'])
@@ -33,10 +42,14 @@ def get_data():
         if result is None:
             return jsonify({"message": "User could not be found"}), 404
         else:
+            response = {}
             if "description" in result.keys():
+                response["description"] = result["description"]
                 print(result["description"])
-                return jsonify({"message": [result["description"]]}), 202
-            return jsonify({"message": "Description not set"}), 404
+            if "photo" in result.keys():
+                response["photo"] = f"../uploads/{result["photo"]}"
+            return jsonify(response), 202
+
     if request.method == "OPTIONS":
         # Handle the OPTIONS request
         response = app.make_response('')
@@ -305,6 +318,39 @@ def set_data():
         response.headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
         return response
-
+# uploadPhoto
+@app.route('/uploadPhoto', methods=['POST','GET', 'OPTIONS'])
+def upload_photo():
+    if request.method == "POST":
+        details = request.form['details']
+        file = request.files['file']
+        detailsArr = details.split()
+        username = detailsArr[0]
+        password = detailsArr[1]
+        result = collection.find_one({'username': username})
+        # Result being none should really never happen since you already signed in but its good to check
+        if result is None:
+            return jsonify({"message": "User could not be found"}), 404
+        else:
+            # Save the file under /uploads in the server
+            filename = file.filename
+            file_path = os.path.join(UPLOAD_FOLDER, filename)
+            file.save(f'../uploads/{filename}')
+            document_id = result['_id']
+            addDesc = {
+                '$set': {
+                    'photo': filename
+                }
+            }
+            collection.update_one({'_id': document_id}, addDesc)
+            return jsonify({"message": "Data successfully set"}), 202
+    if request.method == "OPTIONS":
+        # Handle the OPTIONS request
+        response = app.make_response('')
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        response.headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization")
+        return response
+    
 if __name__ == '__main__':
-    app.run(debug=True, port=5000, ssl_context='adhoc')
+    app.run(debug=True, port=5000)

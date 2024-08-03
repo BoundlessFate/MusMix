@@ -39,10 +39,20 @@ export class ProfileComponent {
       
       if (response.ok) {
         const result = await response.json();
-        (document.getElementById('description') as HTMLInputElement).value = result.message;
-        console.log("description set");
+        if (result.description) {
+          (document.getElementById('description') as HTMLInputElement).value = result.description;
+          console.log("description set");
+        } else {
+          console.log("description not set");
+        }
+        if (result.photo) {
+          (document.getElementById('profilePhoto') as HTMLImageElement).src = result.photo;
+          console.log("photo set");
+        } else {
+          console.log("photo not set");
+        }
       } else {
-        console.log("description not set yet");
+        console.log("user couldnt be found");
       }
     } catch (error) {
       console.error('Error:', error);
@@ -79,6 +89,7 @@ export class ProfileComponent {
     }
   }
   async checkForPhotoUpload() {
+    console.log("hi")
     document.getElementById('photoInput')?.addEventListener('change', (event: Event) => {
       const fileInput = event.target as HTMLInputElement;
       const file = fileInput.files?.[0];
@@ -95,7 +106,7 @@ export class ProfileComponent {
         }
       }
       // After validating the uploaded file is correct, push to the google
-      uploadPhoto()
+      this.uploadPhoto();
     });
   }
   async checkForCookie() {
@@ -120,6 +131,42 @@ export class ProfileComponent {
     user.innerHTML  = `<h4>${str}</h4>`;
     user.style.display = 'block';
     //(document.getElementById('output') as HTMLInputElement).style.display = 'flex';
+  }
+
+  async uploadPhoto() {
+    console.log("hi2")
+    const fileInput = document.getElementById('photoInput') as HTMLInputElement;
+    const file = fileInput.files ? fileInput.files[0] : null;
+    // Get details from cookies
+    var details = "";
+    const cookieName = "login=";
+    const allCookies = document.cookie.split(';');
+    for (let i = 0; i < allCookies.length; i++) {
+      let c = allCookies[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(cookieName) === 0) { details = c.substring(cookieName.length, c.length); }
+    }
+    if (!file) {
+        alert('Please select a photo to upload.');
+        return;
+    }
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('details', details);
+      const response = await fetch('http://127.0.0.1:5000/uploadPhoto', {
+          method: 'POST',
+          body: formData
+        });
+      
+      if (response.ok) {
+          alert('Data set successfully!');
+      } else {
+          alert('Error during data upload.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }
 }
 // upload.ts
@@ -149,41 +196,5 @@ function previewPhoto(event: Event): void {
       reader.readAsDataURL(file);
   } else {
       fileNameDisplay.textContent = '';
-  }
-}
-
-  async uploadPhoto() {
-    const fileInput = document.getElementById('photoInput') as HTMLInputElement;
-    const file = fileInput.files ? fileInput.files[0] : null;
-    // Get details from cookies
-    var details = "";
-    const cookieName = "login=";
-    const allCookies = document.cookie.split(';');
-    for (let i = 0; i < allCookies.length; i++) {
-      let c = allCookies[i];
-      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-      if (c.indexOf(cookieName) === 0) { details = c.substring(cookieName.length, c.length); }
-    }
-    if (!file) {
-        alert('Please select a photo to upload.');
-        return;
-    }
-    try {
-      const response = await fetch('http://127.0.0.1:5000/setProfileData', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ file, details })
-        });
-      
-      if (response.ok) {
-          alert('Data set successfully!');
-      } else {
-          alert('Error during data upload.');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
   }
 }
