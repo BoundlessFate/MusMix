@@ -53,6 +53,18 @@ export class ProfileComponent {
         } else {
           console.log("photo not set");
         }
+        if (result.favorite_songs) {
+          (document.getElementById('favorite_songs') as HTMLParagraphElement).textContent = result.favorite_songs;
+          console.log("favorite songs set");
+        } else {
+          console.log("favorite songs not set");
+        }
+        if (result.favorite_genres) {
+          (document.getElementById('favorite_genres') as HTMLInputElement).textContent = result.favorite_genres;
+          console.log("favorite genres set");
+        } else {
+          console.log("favorite genres not set");
+        } 
       } else {
         console.log("user couldnt be found");
       }

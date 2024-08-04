@@ -53,6 +53,10 @@ def get_data():
                 print(result["description"])
             if "photo" in result.keys():
                 response["photo"] = result["photo"]
+            if "favorite_songs" in result.keys():
+                response["favorite_songs"] = result["favorite_songs"]
+            if "favorite_genres" in result.keys():
+                response["favorite_genres"] = result["favorite_genres"]
             return jsonify(response), 202
 
     if request.method == "OPTIONS":
@@ -159,6 +163,54 @@ def user_search():
         print(f"Speechiness: {features['speechiness']}")
         print(f"Valence: {features['valence']}")
         print("-----NOW SEARCHING FOR OTHER SONGS-----")
+
+        # IF THE USER IS LOGGED IN, SAVE THIS SONG FOR THEM AS A "FAVORITED SONG"... ALSO SAVE ALL THE GENRES!
+        #cookie exist only when user logged in
+        details = data.get('details')
+        if details is not None:
+            detailsArr = details.split()
+            username = detailsArr[0]
+            password = detailsArr[1]
+            auth = sha256.generate_hash(username + password).hex()
+            result = collection.find_one({'auth': auth})
+            #update to MongoDB
+            # If song has previously been added
+            favSongsNew = []
+            if "favorite_songs" in result.keys():
+                favSongsNew = result["favorite_songs"]
+            # Add the new song
+            favSongsNew.append(track['name'])
+            # Get rid of any duplicates
+            favSongsNew = list(set(favSongsNew))
+            # Keep only the last 5 entries
+            favSongsNew = favSongsNew[-5:]
+            document_id = result['_id']
+            addFavSongs = {
+                '$set': {
+                    'favorite_songs': favSongsNew
+                }
+            }
+            collection.update_one({'_id': document_id}, addFavSongs)
+
+            # Do the same as adding songs but add the genres
+            favGenresNew = []
+            if "favorite_genres" in result.keys():
+                favGenresNew = result["favorite_genres"]
+            # Add the new genres
+            for g in genres:
+                favGenresNew.append(g)
+            # Get rid of any duplicates
+            favGenresNew = list(set(favGenresNew))
+            # Keep only the last 5 entries
+            favGenresNew = favGenresNew[-5:]
+            document_id = result['_id']
+            addFavGenres = {
+                '$set': {
+                    'favorite_genres': favGenresNew
+                }
+            }
+            collection.update_one({'_id': document_id}, addFavGenres)
+
         checkedSongs=set()
         songVals = []
         for genre in genres:
@@ -341,12 +393,12 @@ def upload_photo():
             filename = file.filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             document_id = result['_id']
-            addDesc = {
+            addPhoto = {
                 '$set': {
                     'photo': filename
                 }
             }
-            collection.update_one({'_id': document_id}, addDesc)
+            collection.update_one({'_id': document_id}, addPhoto)
             return jsonify({"message": "Data successfully set"}), 202
     if request.method == "OPTIONS":
         # Handle the OPTIONS request
