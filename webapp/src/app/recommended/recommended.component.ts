@@ -43,45 +43,52 @@ export class RecommendedComponent {
         })
         const data = await response.json();
       // (document.getElementById('outputString') as HTMLInputElement).innerHTML = data.message;
+      if (response.ok) {
 
+        (document.getElementById('out1') as HTMLInputElement).innerHTML = data.m1;
+        (document.getElementById('out1') as HTMLInputElement).style.display = 'inline-block';
 
-      (document.getElementById('out1') as HTMLInputElement).innerHTML = data.m1;
-      (document.getElementById('out1') as HTMLInputElement).style.display = 'inline-block';
+        (document.getElementById('out2') as HTMLInputElement).innerHTML = data.m2;
+        (document.getElementById('out2') as HTMLInputElement).style.display = 'inline-block';
 
-      (document.getElementById('out2') as HTMLInputElement).innerHTML = data.m2;
-      (document.getElementById('out2') as HTMLInputElement).style.display = 'inline-block';
+        (document.getElementById('out3') as HTMLInputElement).innerHTML = data.m3;
+        (document.getElementById('out3') as HTMLInputElement).style.display = 'inline-block';
 
-      (document.getElementById('out3') as HTMLInputElement).innerHTML = data.m3;
-      (document.getElementById('out3') as HTMLInputElement).style.display = 'inline-block';
+        (document.getElementById('out4') as HTMLInputElement).innerHTML = data.m4;
+        (document.getElementById('out4') as HTMLInputElement).style.display = 'inline-block';
 
-      (document.getElementById('out4') as HTMLInputElement).innerHTML = data.m4;
-      (document.getElementById('out4') as HTMLInputElement).style.display = 'inline-block';
+        (document.getElementById('out5') as HTMLInputElement).innerHTML = data.m5;
+        (document.getElementById('out5') as HTMLInputElement).style.display = 'inline-block';
 
-      (document.getElementById('out5') as HTMLInputElement).innerHTML = data.m5;
-      (document.getElementById('out5') as HTMLInputElement).style.display = 'inline-block';
+        (document.getElementById('out6') as HTMLInputElement).innerHTML = data.m6;
+        (document.getElementById('out6') as HTMLInputElement).style.display = 'inline-block';
 
-      (document.getElementById('out6') as HTMLInputElement).innerHTML = data.m6;
-      (document.getElementById('out6') as HTMLInputElement).style.display = 'inline-block';
+        (document.getElementById('out7') as HTMLInputElement).innerHTML = data.m7;
+        (document.getElementById('out7') as HTMLInputElement).style.display = 'inline-block';
 
-      (document.getElementById('out7') as HTMLInputElement).innerHTML = data.m7;
-      (document.getElementById('out7') as HTMLInputElement).style.display = 'inline-block';
+        (document.getElementById('out8') as HTMLInputElement).innerHTML = data.m8;
+        (document.getElementById('out8') as HTMLInputElement).style.display = 'inline-block';
 
-      (document.getElementById('out8') as HTMLInputElement).innerHTML = data.m8;
-      (document.getElementById('out8') as HTMLInputElement).style.display = 'inline-block';
+        (document.getElementById('out9') as HTMLInputElement).innerHTML = data.m9;
+        (document.getElementById('out9') as HTMLInputElement).style.display = 'inline-block';
 
-      (document.getElementById('out9') as HTMLInputElement).innerHTML = data.m9;
-      (document.getElementById('out9') as HTMLInputElement).style.display = 'inline-block';
+        (document.getElementById('out10') as HTMLInputElement).innerHTML = data.m10;
+        (document.getElementById('out10') as HTMLInputElement).style.display = 'inline-block';
+        (document.getElementById('caption') as HTMLInputElement).style.display = 'none';
 
-      (document.getElementById('out10') as HTMLInputElement).innerHTML = data.m10;
-      (document.getElementById('out10') as HTMLInputElement).style.display = 'inline-block';
-      (document.getElementById('caption') as HTMLInputElement).style.display = 'none';
-
-      const caption = document.getElementById('caption') as HTMLInputElement;
-
-      caption.innerHTML  = `<h2><i>Showing songs you might enjoy!</i></h2>`;
-      alert("success");
-      caption.style.display = 'flex';
-      caption.style.position = 'absolute';
-      caption.style.top = '18%';
+        const caption = document.getElementById('caption') as HTMLInputElement;
+  
+        caption.innerHTML  = `<h2><i>Showing songs you might enjoy!</i></h2>`;
+        caption.style.display = 'flex';
+        caption.style.position = 'absolute';
+        caption.style.top = '18%';
+      } else {
+        const caption = document.getElementById('caption') as HTMLInputElement;
+  
+        caption.innerHTML  = `<h2><i>No results found... Search More Songs!</i></h2>`;
+        caption.style.display = 'flex';
+        caption.style.position = 'absolute';
+        caption.style.top = '18%';
+      }
   }
 }

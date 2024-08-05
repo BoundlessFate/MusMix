@@ -358,7 +358,11 @@ def user_recommended():
         password = detailsArr[1]
         auth = sha256.generate_hash(username + password).hex()
         result = collection.find_one({'auth': auth})
-        genres = result["favorite_genres"]
+        genres = []
+        if "favorite_genres" in result.keys():
+            genres = result["favorite_genres"]
+        else:
+            return jsonify({"message": "We searched everywhere under the sun, and no songs could be found!"}), 404
         clientId = "89ed1b35def340909aa9b514ed93291e"
         clientSecret = "1f50f138da1d42cd8adeedbbe904d8cd"
         authManager = SpotifyClientCredentials(client_id=clientId, client_secret=clientSecret)
