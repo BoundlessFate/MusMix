@@ -180,9 +180,11 @@ def user_search():
             if "favorite_songs" in result.keys():
                 favSongsNew = result["favorite_songs"]
             # Add the new song
-            favSongsNew.append(track['name'])
+            newSongName = track['name']
             # Get rid of any duplicates
-            favSongsNew = list(set(favSongsNew))
+            if newSongName not in favSongsNew:
+                favSongsNew.append(track['name'])
+            
             # Keep only the last 5 entries
             favSongsNew = favSongsNew[-5:]
             document_id = result['_id']
