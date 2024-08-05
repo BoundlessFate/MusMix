@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>MusMix</title>
+        <link rel="stylesheet" href="recommended.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+
+    <body>
+        <main class="main">
+            
+            <div class="content">
+                
+                <a class="logo" href="../" rel="noopener">
+                    <svg width="15vw" height="15vh">
+                        <image xlink:href="musmixlogo.svg" width="100%" height="100%" />
+                    </svg>
+                </a>
+                <div class="top-bar">
+                    <!-- Logo -->
+                <a class="title" href="../" rel="noopener">
+                    <h1>MusMix</h1>
+                </a>
+                    <!-- Buttons -->
+                    <div class="pill-buttons">
+                        <!-- @for (item of [ 
+
+                            {title: 'Feedback', link: 'https://forms.gle/oxMmEFYvoNmmER4R9'},
+                            {title: 'Login', link: '/login'},
+                        ]; track item.title) { -->
+                        <a class="pill" href="/MusMix/" rel="noopener">
+                            <span>Home</span>
+                        </a>
+                        <a class="pill" href="https://forms.gle/oxMmEFYvoNmmER4R9" target="_blank" rel="noopener">
+                            <span>Feedback</span>
+                        </a>
+                        <a class="pill" href="/MusMix/login" rel="noopener">
+                            <span>Login</span>
+                        </a>
+                        <a class="pill" href="/MusMix/profile" rel="noopener">
+                            <span>Profile</span>
+                        </a>
+
+                    </div>
+                </div>
+
+
+                <div class = "bottom-left">
+                    <a href="https://github.com/BoundlessFate/MusMix/" target="_blank">
+                        <svg width="7vw" height="7vh">
+                            <image xlink:href="githublogo.svg" width="100%" height="100%" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </main>
+        <div class = "recommendedContent">
+
+            <div class = "caption" id = "caption">
+                <h2><i>Searching...</i></h2>
+            </div>
+        </div>
+
+        <div class="topRow"> 
+            <div class = "out1" id="out1"></div>
+            <div class = "out2" id="out2"></div>
+            <div class = "out3" id="out3"></div>
+            <div class = "out4" id="out4"></div>
+            <div class = "out5" id="out5"></div>
+        </div>
+
+        <div class="bottomRow"> 
+            <div class = "out6" id="out6"></div>
+            <div class = "out7" id="out7"></div>
+            <div class = "out8" id="out8"></div>
+            <div class = "out9" id="out9"></div>
+            <div class = "out20" id="out10"></div>
+        </div>
+        
+    </body>
+    
+</html>
+
+<!-- Keep this at bottom of page, deals with page routing -->
+<router-outlet />
