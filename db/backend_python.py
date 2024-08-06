@@ -239,19 +239,10 @@ def user_search():
                     # <h3>{song["name"]} <i>{song["artists"][0]["name"]}</i></h3>
                     '''
                 ))
-                # songVals.append((str(val)+"<strong> "+ song['name']+"</strong> <i>"+song['artists'][0]['name']+"</i>"))
+
         songVals.sort(key=lambda tup: tup[0], reverse = True)
         i = 1
-        finalMessage1 = ""
-        finalMessage2 = ""
-        finalMessage3 = ""
-        finalMessage4 = ""
-        finalMessage5 = ""
-        finalMessage6 = ""
-        finalMessage7 = ""
-        finalMessage8 = ""
-        finalMessage9 = ""
-        finalMessage10 = ""
+        finalMessage = [""]*10
         for song in songVals:
             if (i > 10):
                 break
@@ -259,26 +250,7 @@ def user_search():
             print("#"+str(i))
             print(f"Track Name & Artist: {song[1]}")
             print(f"Score: {int(song[0])}")
-            if i==1:
-                finalMessage1 = song[1] +"\n"
-            elif i==2:
-                finalMessage2 = song[1] +"\n"
-            elif i==3:
-                finalMessage3 =  song[1] +"\n"
-            elif i==4:
-                finalMessage4 = song[1] +"\n"
-            elif i==5:
-                finalMessage5 = song[1] +"\n"
-            elif i==6:
-                finalMessage6 = song[1] +"\n"
-            elif i==7:
-                finalMessage7 = song[1] +"\n"
-            elif i==8:
-                finalMessage8 = song[1] +"\n"
-            elif i==9:
-                finalMessage9 = song[1] +"\n"
-            elif i==10:
-                finalMessage10 =  song[1] +"\n"
+            finalMessage[i - 1] = song[1] + "\n"
 
             
             i += 1
@@ -286,16 +258,16 @@ def user_search():
             # THIS IS THE CODE TO RUN WHEN SONGS FOUND
             print("Songs are found")
             response = {
-                "m1": finalMessage1,
-                "m2": finalMessage2,
-                "m3": finalMessage3,
-                "m4": finalMessage4,
-                "m5": finalMessage5,
-                "m6": finalMessage6,
-                "m7": finalMessage7,
-                "m8": finalMessage8,
-                "m9": finalMessage9,
-                "m10": finalMessage10,
+                "m1": finalMessage[0],
+                "m2": finalMessage[1],
+                "m3": finalMessage[2],
+                "m4": finalMessage[3],
+                "m5": finalMessage[4],
+                "m6": finalMessage[5],
+                "m7": finalMessage[6],
+                "m8": finalMessage[7],
+                "m9": finalMessage[8],
+                "m10": finalMessage[9],
                 "artist": track['artists'][0]['name'],
                 "song": track['name'],
                 "album": track['album']['artists'][0]['href']
