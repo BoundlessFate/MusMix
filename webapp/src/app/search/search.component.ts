@@ -53,35 +53,48 @@ export class SearchComponent {
       // (document.getElementById('outputString') as HTMLInputElement).innerHTML = data.message;
 
 
-      (document.getElementById('out1') as HTMLInputElement).innerHTML = data.m1;
-      (document.getElementById('out1') as HTMLInputElement).style.display = 'inline-block';
+    // Array of element IDs
+      const outElementIds = [
+        'out1', 'out2', 'out3', 'out4', 'out5',
+        'out6', 'out7', 'out8', 'out9', 'out10'
+      ];
 
-      (document.getElementById('out2') as HTMLInputElement).innerHTML = data.m2;
-      (document.getElementById('out2') as HTMLInputElement).style.display = 'inline-block';
+      // Loop through each element ID and apply styles and content
+      outElementIds.forEach((id, index) => {
+        const element = document.getElementById(id) as HTMLDivElement; // Use HTMLDivElement instead of HTMLInputElement
 
-      (document.getElementById('out3') as HTMLInputElement).innerHTML = data.m3;
-      (document.getElementById('out3') as HTMLInputElement).style.display = 'inline-block';
+        if (element) {
+            element.innerHTML = data[`m${index + 1}`]; // Set the content from data object
 
-      (document.getElementById('out4') as HTMLInputElement).innerHTML = data.m4;
-      (document.getElementById('out4') as HTMLInputElement).style.display = 'inline-block';
+            element.style.display = 'inline-block';
 
-      (document.getElementById('out5') as HTMLInputElement).innerHTML = data.m5;
-      (document.getElementById('out5') as HTMLInputElement).style.display = 'inline-block';
 
-      (document.getElementById('out6') as HTMLInputElement).innerHTML = data.m6;
-      (document.getElementById('out6') as HTMLInputElement).style.display = 'inline-block';
+            // Specific styles for the image inside the element with id 'out1'
+            const image = element.querySelector('img') as HTMLImageElement;
+            if (image) {
+                image.style.width = '50%';   // Adjust width as needed
+                image.style.height = '50%';  // Adjust height as needed
+                image.style.objectFit = 'cover'; // Ensure the image covers the set dimensions
+                image.style.borderRadius = '10px'; // Optional: rounded corners
+            }
+            const h3 = element.querySelector('h3') as HTMLImageElement;
+            const i = element.querySelector('i') as HTMLImageElement;
+            if(h3 || i){
+              h3.style.marginTop = '10px';
+              h3.style.fontSize = '15px';
+              i.style.fontSize = '15px';
+              h3.style.margin = '0px';
+              i.style.margin = '0px';
+              h3.style.padding = '0px';
+              i.style.padding = '0px';
+              i.style.marginTop = '-10px';
+              h3.style.color='white';
+              i.style.color='white';
 
-      (document.getElementById('out7') as HTMLInputElement).innerHTML = data.m7;
-      (document.getElementById('out7') as HTMLInputElement).style.display = 'inline-block';
+            }
+        }
+      });
 
-      (document.getElementById('out8') as HTMLInputElement).innerHTML = data.m8;
-      (document.getElementById('out8') as HTMLInputElement).style.display = 'inline-block';
-
-      (document.getElementById('out9') as HTMLInputElement).innerHTML = data.m9;
-      (document.getElementById('out9') as HTMLInputElement).style.display = 'inline-block';
-
-      (document.getElementById('out10') as HTMLInputElement).innerHTML = data.m10;
-      (document.getElementById('out10') as HTMLInputElement).style.display = 'inline-block';
 
 
 
@@ -90,6 +103,7 @@ export class SearchComponent {
       (document.getElementById('caption') as HTMLInputElement).style.display = 'none';
 
       const caption = document.getElementById('caption') as HTMLInputElement;
+      caption.style.color='white';
 
       if (data.song == undefined && data.artist == undefined) {
         caption.innerHTML  = `<h2><i>Showing similar songs to "${name}" by ${artist}</i></h2>`;

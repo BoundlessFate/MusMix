@@ -235,9 +235,8 @@ def user_search():
                 songVals.append((
                     val,
                     f'''
-                    <img src="{song["album"]["images"][0]["url"]}" style="width: 10%; height: auto;">
-                    <h3>{song["name"]}</h3>
-                    <h3><i>{song["artists"][0]["name"]}</i></h3>
+                    <img src="{song["album"]["images"][0]["url"]}">
+                    # <h3>{song["name"]} <i>{song["artists"][0]["name"]}</i></h3>
                     '''
                 ))
                 # songVals.append((str(val)+"<strong> "+ song['name']+"</strong> <i>"+song['artists'][0]['name']+"</i>"))
