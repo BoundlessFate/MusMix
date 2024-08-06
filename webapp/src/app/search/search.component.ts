@@ -40,6 +40,7 @@ export class SearchComponent {
     try {
       const name = (document.getElementById('songInput') as HTMLInputElement).value;
       const artist = (document.getElementById('artistInput') as HTMLInputElement).value;
+      (document.getElementById('bottom-left') as HTMLInputElement).style.display='none';
       console.log(name)
       console.log(artist)
       const response = await fetch('https://musmix.site/search', {
@@ -110,7 +111,7 @@ export class SearchComponent {
       }else{
         caption.innerHTML  = `<h2><i>Showing similar songs to "${data.song}" by ${data.artist}</i></h2>`;
       }
-      alert("success");
+
       caption.style.display = 'flex';
       caption.style.position = 'absolute';
       caption.style.top = '18%';
@@ -122,3 +123,53 @@ export class SearchComponent {
     }
   }
 }
+document.addEventListener('DOMContentLoaded', () => {
+  const searchButton = document.getElementById('searchButton');
+  const songInput = document.getElementById('songInput') as HTMLInputElement;
+  const artistInput = document.getElementById('artistInput') as HTMLInputElement;
+
+  // Add click event listener to the search button
+  searchButton?.addEventListener('click', async () => {
+      await search_song();
+  });
+
+  // Add keydown event listener for Enter key on songInput
+  songInput.addEventListener('keydown', async (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+          e.preventDefault(); // Prevent form submission if inside a form
+          await search_song();
+      }
+  });
+
+  // Add keydown event listener for Enter key on artistInput
+  artistInput.addEventListener('keydown', async (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+          e.preventDefault(); // Prevent form submission if inside a form
+          await search_song();
+      }
+  });
+
+  async function search_song(): Promise<void> {
+      try {
+          // Simulate an async search operation (e.g., fetching data from an API)
+          await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulating delay
+
+          const elements = document.querySelectorAll('[id^="out"]');
+          elements.forEach((element, index) => {
+            const delay = index * 0.5 +2; // Stagger delay in seconds
+            const elementStyle = element as HTMLElement;
+
+            elementStyle.style.opacity = '0'; // Start hidden
+            elementStyle.style.transition = `opacity 1s ease-in-out ${delay}s`; // Transition with delay
+
+            // Force a reflow to ensure transition is applied
+            void elementStyle.offsetWidth; // Trigger reflow
+
+            // Set opacity to 1 to trigger fade-in
+            elementStyle.style.opacity = '1';
+        });
+      } catch (error) {
+          console.error('Error during song search:', error);
+      }
+  }
+});
