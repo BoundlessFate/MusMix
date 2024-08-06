@@ -19,7 +19,7 @@ export class RegisterComponent {
     const password = (document.getElementById('pwd') as HTMLInputElement).value;
     const confirmpassword = (document.getElementById('conpwd') as HTMLInputElement).value;
     try {
-      if (confirmpassword != password) {
+      if (confirmpassword.localeCompare(password) != 0) {
         alert('Password and Confirm Password Do Not Match!');
         window.location.reload();
       }
