@@ -258,6 +258,7 @@ def user_search():
             # THIS IS THE CODE TO RUN WHEN SONGS FOUND
             print("Songs are found")
             response = {
+                #set each final message to an index in finalMessage
                 "m1": finalMessage[0],
                 "m2": finalMessage[1],
                 "m3": finalMessage[2],
