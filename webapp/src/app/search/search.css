@@ -253,3 +253,12 @@ img {
         flex: 1 1 100%;
     }
 }
+/* Ensure items inside the rows are properly sized */
+.topRow > div, .bottomRow > div {
+    flex: 1 1 18%;
+    max-width: 20%;
+    box-sizing: border-box;
+    opacity: 0; /* Start hidden */
+    transition: opacity 1s ease-in-out; /* Smooth fade-in effect */
+}
+
