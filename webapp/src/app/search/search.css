@@ -191,7 +191,6 @@ h2 {
 
 
 .container {
-    position: relative;
     height: 100vh;
 }
 
@@ -224,11 +223,6 @@ h2 {
     box-sizing: border-box; 
 }
 
-.topRow > div, .bottomRow > div {
-    flex: 1 1 18%;
-    max-width: 20%;
-    box-sizing: border-box;
-}
 
 img {
     width: 100%;
@@ -236,17 +230,6 @@ img {
     object-fit: cover;
 }
 
-@media (max-width: 768px) {
-    .topRow > div, .bottomRow > div {
-        flex: 1 1 45%;
-    }
-}
-
-@media (max-width: 480px) {
-    .topRow > div, .bottomRow > div {
-        flex: 1 1 100%;
-    }
-}
 
 .topRow > div, .bottomRow > div {
     flex: 1 1 18%;

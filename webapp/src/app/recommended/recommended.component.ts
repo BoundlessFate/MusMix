@@ -57,6 +57,7 @@ export class RecommendedComponent implements OnInit {
   }
 
   updateContent(data: any) {
+    (document.getElementById('bottom-left') as HTMLInputElement).style.display='none';
     const outElementIds = [
       'out1', 'out2', 'out3', 'out4', 'out5',
       'out6', 'out7', 'out8', 'out9', 'out10'
@@ -68,7 +69,10 @@ export class RecommendedComponent implements OnInit {
       if (element) {
         element.innerHTML = data[`m${index + 1}`];
         element.style.display = 'inline-block';
+        element.style.opacity = '0'; // Start as invisible
+        element.style.transition = `opacity 1s ease-in-out ${index * 0.2}s`; // Staggered delay
 
+        // Apply styles for child elements
         const image = element.querySelector('img') as HTMLImageElement;
         if (image) {
           image.style.width = '50%';
@@ -87,6 +91,11 @@ export class RecommendedComponent implements OnInit {
           i.style.fontSize = '15px';
           i.style.color = 'white';
         }
+
+        // Trigger fade-in
+        setTimeout(() => {
+          element.style.opacity = '1';
+        }, 0); // Apply immediately after setting initial opacity
       }
     });
   }

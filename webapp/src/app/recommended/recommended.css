@@ -252,8 +252,8 @@ img {
     flex: 1 1 18%;
     max-width: 20%;
     box-sizing: border-box;
-    /* opacity: 0; 
-    transition: opacity 1s ease-in-out;  */
+    opacity: 0; 
+    transition: opacity 1s ease-in-out; 
 }
 .recommendedContent{
     display: flex;
