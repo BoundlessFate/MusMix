@@ -15,6 +15,7 @@ export class ProfileComponent {
   constructor(private router: Router) { }
   ngOnInit() {
     this.checkForCookie();
+    this.checkForPhotoUpload();
     this.getProfileData();
   }
   async getProfileData(){ 
@@ -28,7 +29,7 @@ export class ProfileComponent {
       if (c.indexOf(cookieName) === 0) { details = c.substring(cookieName.length, c.length); }
     }
     try {
-      const response = await fetch('https://198.199.84.208:5000/getProfileData', {
+      const response = await fetch('http://127.0.0.1:5000/getProfileData', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
@@ -38,10 +39,34 @@ export class ProfileComponent {
       
       if (response.ok) {
         const result = await response.json();
-        (document.getElementById('description') as HTMLInputElement).value = result.message;
-        console.log("description set");
+        if (result.description) {
+          (document.getElementById('description') as HTMLInputElement).value = result.description;
+          console.log("description set");
+        } else {
+          console.log("description not set");
+        }
+        if (result.photo) {
+          const photoElement = (document.getElementById('profilePhoto') as HTMLImageElement);
+          console.log(result.photo)
+          photoElement.src = 'http://127.0.0.1:5000/uploads/' + result.photo;
+          console.log("photo set");
+        } else {
+          console.log("photo not set");
+        }
+        if (result.favorite_songs) {
+          (document.getElementById('favorite_songs') as HTMLParagraphElement).textContent = result.favorite_songs;
+          console.log("favorite songs set");
+        } else {
+          console.log("favorite songs not set");
+        }
+        if (result.favorite_genres) {
+          (document.getElementById('favorite_genres') as HTMLInputElement).textContent = result.favorite_genres;
+          console.log("favorite genres set");
+        } else {
+          console.log("favorite genres not set");
+        } 
       } else {
-        console.log("description not set yet");
+        console.log("user couldnt be found");
       }
     } catch (error) {
       console.error('Error:', error);
@@ -60,7 +85,7 @@ export class ProfileComponent {
       if (c.indexOf(cookieName) === 0) { details = c.substring(cookieName.length, c.length); }
     }
     try {
-      const response = await fetch('https://musmix.site/setProfileData', {
+      const response = await fetch('http://127.0.0.1:5000/setProfileData', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
@@ -76,6 +101,27 @@ export class ProfileComponent {
     } catch (error) {
       console.error('Error:', error);
     }
+  }
+  async checkForPhotoUpload() {
+    console.log("hi")
+    document.getElementById('photoInput')?.addEventListener('change', (event: Event) => {
+      const fileInput = event.target as HTMLInputElement;
+      const file = fileInput.files?.[0];
+      if(file) {
+        const approvedExtensions = ['jpg', 'jpeg', 'png'];
+        const curExtension = file.name.split('.')[1];
+        if (!approvedExtensions.includes(curExtension)) {
+          alert('Incorrect file type! Only use jpg, jpeg, or png');
+          window.location.reload();
+        }
+        if (file.size > 1024*1024) {
+          alert('File Size Too Large! Max size is 1MB');
+          window.location.reload();
+        }
+      }
+      // After validating the uploaded file is correct, push to the google
+      this.uploadPhoto();
+    });
   }
   async checkForCookie() {
     var details = "";
@@ -99,6 +145,42 @@ export class ProfileComponent {
     user.innerHTML  = `<h4>${str}</h4>`;
     user.style.display = 'block';
     //(document.getElementById('output') as HTMLInputElement).style.display = 'flex';
+  }
+
+  async uploadPhoto() {
+    console.log("hi2")
+    const fileInput = document.getElementById('photoInput') as HTMLInputElement;
+    const file = fileInput.files ? fileInput.files[0] : null;
+    // Get details from cookies
+    var details = "";
+    const cookieName = "login=";
+    const allCookies = document.cookie.split(';');
+    for (let i = 0; i < allCookies.length; i++) {
+      let c = allCookies[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(cookieName) === 0) { details = c.substring(cookieName.length, c.length); }
+    }
+    if (!file) {
+        alert('Please select a photo to upload.');
+        return;
+    }
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('details', details);
+      const response = await fetch('http://127.0.0.1:5000/uploadPhoto', {
+          method: 'POST',
+          body: formData
+        });
+      
+      if (response.ok) {
+          alert('Data set successfully!');
+      } else {
+          alert('Error during data upload.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }
 }
 // upload.ts
@@ -129,31 +211,4 @@ function previewPhoto(event: Event): void {
   } else {
       fileNameDisplay.textContent = '';
   }
-}
-
-function uploadPhoto(): void {
-  const fileInput = document.getElementById('photoInput') as HTMLInputElement;
-  const file = fileInput.files ? fileInput.files[0] : null;
-
-  if (!file) {
-      alert('Please select a photo to upload.');
-      return;
-  }
-
-  const formData = new FormData();
-  formData.append('photo', file);
-
-  fetch('YOUR_SERVER_UPLOAD_ENDPOINT', {
-      method: 'POST',
-      body: formData
-  })
-  .then(response => response.json())
-  .then(data => {
-      console.log('Success:', data);
-      alert('Photo uploaded successfully.');
-  })
-  .catch(error => {
-      console.error('Error:', error);
-      alert('Failed to upload photo.');
-  });
 }

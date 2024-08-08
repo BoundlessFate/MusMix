@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <title>MusMix</title>
-        <link rel="stylesheet" href="search.css">
+        <link rel="stylesheet" href="recommended.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
 
@@ -17,12 +17,22 @@
                     </svg>
                 </a>
                 <div class="top-bar">
+                    <!-- Logo -->
                 <a class="title" href="../" rel="noopener">
                     <h1>MusMix</h1>
                 </a>
+                    <!-- Buttons -->
                     <div class="pill-buttons">
+                        <!-- @for (item of [ 
+
+                            {title: 'Feedback', link: 'https://forms.gle/oxMmEFYvoNmmER4R9'},
+                            {title: 'Login', link: '/login'},
+                        ]; track item.title) { -->
                         <a class="pill" href="/MusMix/" rel="noopener">
                             <span>Home</span>
+                        </a>
+                        <a class="pill" href="/MusMix/search" rel="noopener">
+                            <span>Input A Song</span>
                         </a>
                         <a class="pill" href="https://forms.gle/oxMmEFYvoNmmER4R9" target="_blank" rel="noopener">
                             <span>Feedback</span>
@@ -38,7 +48,7 @@
                 </div>
 
 
-                <div class = "bottom-left" id= "bottom-left">
+                <div class = "bottom-left" id = "bottom-left">
                     <a href="https://github.com/BoundlessFate/MusMix/" target="_blank">
                         <svg width="7vw" height="7vh">
                             <image xlink:href="githublogo.svg" width="100%" height="100%" />
@@ -47,19 +57,13 @@
                 </div>
             </div>
         </main>
-        <div class = "searchContent">
+        <div class = "recommendedContent">
 
             <div class = "caption" id = "caption">
-                <h2><i>Let's make some music!</i></h2>
-            </div>
-    
-            <div class = "search-bar">
-                <input type="text" id="songInput" class="input-search" placeholder="Input a song">
-                <input type="text" id="artistInput" class="input-search" placeholder="Input an artist">
+                <h2><i>Searching...</i></h2>
             </div>
         </div>
 
-        <div container> 
         <div class="topRow"> 
             <div class = "out1" id="out1"></div>
             <div class = "out2" id="out2"></div>
@@ -73,11 +77,12 @@
             <div class = "out7" id="out7"></div>
             <div class = "out8" id="out8"></div>
             <div class = "out9" id="out9"></div>
-            <div class = "out20" id="out10"></div>
+            <div class = "out10" id="out10"></div>
         </div>
-    </div>
+        
     </body>
     
 </html>
 
+<!-- Keep this at bottom of page, deals with page routing -->
 <router-outlet />
