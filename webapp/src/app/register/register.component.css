@@ -121,3 +121,8 @@ body {
 .pill:hover {
     background: color-mix(in srgb, var(--pill-accent) 15%, transparent);
 }
+
+h3 {
+    color: grey;
+    font-size: 12px;
+}
