@@ -48,7 +48,7 @@ export class ProfileComponent {
         if (result.photo) {
           const photoElement = (document.getElementById('profilePhoto') as HTMLImageElement);
           console.log(result.photo)
-          photoElement.src = 'http://127.0.0.1:5000/uploads/' + result.photo;
+          photoElement.src = 'https://musmix.site/uploads/' + result.photo;
           console.log("photo set");
         } else {
           console.log("photo not set");
