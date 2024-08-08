@@ -191,6 +191,7 @@ h2 {
 
 
 .container {
+    position: relative;
     height: 100vh;
 }
 
@@ -221,7 +222,12 @@ h2 {
     text-align: center;
     width: 100%; 
     box-sizing: border-box; 
+}
 
+.topRow > div, .bottomRow > div {
+    flex: 1 1 18%;
+    max-width: 20%;
+    box-sizing: border-box;
 }
 
 img {
@@ -230,6 +236,17 @@ img {
     object-fit: cover;
 }
 
+@media (max-width: 768px) {
+    .topRow > div, .bottomRow > div {
+        flex: 1 1 45%;
+    }
+}
+
+@media (max-width: 480px) {
+    .topRow > div, .bottomRow > div {
+        flex: 1 1 100%;
+    }
+}
 
 .topRow > div, .bottomRow > div {
     flex: 1 1 18%;
@@ -237,4 +254,10 @@ img {
     box-sizing: border-box;
     opacity: 0; 
     transition: opacity 1s ease-in-out; 
+}
+.recommendedContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15%;
 }

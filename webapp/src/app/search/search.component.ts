@@ -22,6 +22,7 @@ export class SearchComponent {
       const songInput = document.getElementById('songInput') as HTMLInputElement;
       const artistInput = document.getElementById('artistInput') as HTMLInputElement;
   
+      // assures that when "enter" is pressed, the backend algorithm for finding similar songs begins
       songInput.addEventListener('keydown', (e: KeyboardEvent) => {
           if (e.key === 'Enter') {
               console.log("pressed enter")
@@ -40,8 +41,10 @@ export class SearchComponent {
     try {
       const name = (document.getElementById('songInput') as HTMLInputElement).value;
       const artist = (document.getElementById('artistInput') as HTMLInputElement).value;
+      (document.getElementById('bottom-left') as HTMLInputElement).style.display='none';
       console.log(name)
       console.log(artist)
+      //fetch algorithm output from backend
       const response = await fetch('https://musmix.site/search', {
           method: 'POST',
           headers: {
@@ -50,54 +53,60 @@ export class SearchComponent {
           body: JSON.stringify({ name, artist })
         })
         const data = await response.json();
-      // (document.getElementById('outputString') as HTMLInputElement).innerHTML = data.message;
 
+      //list of elements holding album art / artist name / song name
+      const outElementIds = [
+        'out1', 'out2', 'out3', 'out4', 'out5',
+        'out6', 'out7', 'out8', 'out9', 'out10'
+      ];
 
-      (document.getElementById('out1') as HTMLInputElement).innerHTML = data.m1;
-      (document.getElementById('out1') as HTMLInputElement).style.display = 'inline-block';
+      //parse through elements and make them visable / fade in
+      outElementIds.forEach((id, index) => {
+        const element = document.getElementById(id) as HTMLDivElement; 
 
-      (document.getElementById('out2') as HTMLInputElement).innerHTML = data.m2;
-      (document.getElementById('out2') as HTMLInputElement).style.display = 'inline-block';
+        if (element) {
+            element.innerHTML = data[`m${index + 1}`]; 
 
-      (document.getElementById('out3') as HTMLInputElement).innerHTML = data.m3;
-      (document.getElementById('out3') as HTMLInputElement).style.display = 'inline-block';
+            element.style.display = 'inline-block';
 
-      (document.getElementById('out4') as HTMLInputElement).innerHTML = data.m4;
-      (document.getElementById('out4') as HTMLInputElement).style.display = 'inline-block';
+            const image = element.querySelector('img') as HTMLImageElement;
+            if (image) {
+                //make all images the same size with a border radius
+                image.style.width = '50%';   
+                image.style.height = '50%'; 
+                image.style.objectFit = 'cover';
+                image.style.borderRadius = '10px'; 
+            }
+            //select all h3 and i elements (aka elements that arent images)
+            const h3 = element.querySelector('h3') as HTMLImageElement;
+            const i = element.querySelector('i') as HTMLImageElement;
+            if(h3 || i){
+              //set fond sizes and font colors
+              h3.style.fontSize = '15px';
+              i.style.fontSize = '15px';
+              h3.style.color='white';
+              i.style.color='white';
 
-      (document.getElementById('out5') as HTMLInputElement).innerHTML = data.m5;
-      (document.getElementById('out5') as HTMLInputElement).style.display = 'inline-block';
+            }
+        }
+      });
 
-      (document.getElementById('out6') as HTMLInputElement).innerHTML = data.m6;
-      (document.getElementById('out6') as HTMLInputElement).style.display = 'inline-block';
-
-      (document.getElementById('out7') as HTMLInputElement).innerHTML = data.m7;
-      (document.getElementById('out7') as HTMLInputElement).style.display = 'inline-block';
-
-      (document.getElementById('out8') as HTMLInputElement).innerHTML = data.m8;
-      (document.getElementById('out8') as HTMLInputElement).style.display = 'inline-block';
-
-      (document.getElementById('out9') as HTMLInputElement).innerHTML = data.m9;
-      (document.getElementById('out9') as HTMLInputElement).style.display = 'inline-block';
-
-      (document.getElementById('out10') as HTMLInputElement).innerHTML = data.m10;
-      (document.getElementById('out10') as HTMLInputElement).style.display = 'inline-block';
-
-
-
+      //make the input fields disappear
       (document.getElementById('songInput') as HTMLInputElement).style.display = 'none';
       (document.getElementById('artistInput')as HTMLInputElement).style.display = 'none';
-      (document.getElementById('caption') as HTMLInputElement).style.display = 'none';
 
+      //change color of caption
       const caption = document.getElementById('caption') as HTMLInputElement;
+      caption.style.color='white';
 
+      //change the text in caption depending on if the song was found
       if (data.song == undefined && data.artist == undefined) {
         caption.innerHTML  = `<h2><i>Showing similar songs to "${name}" by ${artist}</i></h2>`;
       }else{
         caption.innerHTML  = `<h2><i>Showing similar songs to "${data.song}" by ${data.artist}</i></h2>`;
       }
-      alert("success");
-      caption.style.display = 'flex';
+
+      //change caption styling
       caption.style.position = 'absolute';
       caption.style.top = '18%';
 
@@ -108,3 +117,52 @@ export class SearchComponent {
     }
   }
 }
+document.addEventListener('DOMContentLoaded', () => {
+  const searchButton = document.getElementById('searchButton');
+  const songInput = document.getElementById('songInput') as HTMLInputElement;
+  const artistInput = document.getElementById('artistInput') as HTMLInputElement;
+
+  // Add click event listener to the search button
+  searchButton?.addEventListener('click', async () => {
+      await search_song();
+  });
+
+  // Add keydown event listener for "Enter" on songInput and artistInput
+  songInput.addEventListener('keydown', async (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+          e.preventDefault(); // Prevent form submission if inside a form
+          await search_song();
+      }
+  });
+
+  //event listener for "enter" key
+  artistInput.addEventListener('keydown', async (e: KeyboardEvent) => {
+      if (e.key === 'Enter') { 
+          //add an await so that the delay does not begin until the songs have been found
+          await search_song();
+      }
+  });
+
+  async function search_song(): Promise<void> {
+      try {
+          //simulate delay from fetching data from an API
+          await new Promise((resolve) => setTimeout(resolve, 1000)); 
+
+          //parse all "out" elements
+          const elements = document.querySelectorAll('[id^="out"]');
+          elements.forEach((element, index) => {
+            const delay = index * 0.2 +2; // Stagger delays
+            const elementStyle = element as HTMLElement;
+
+            // Start elements as hidden
+            elementStyle.style.opacity = '0'; 
+             // Transition with delay
+            elementStyle.style.transition = `opacity 1s ease-in-out ${delay}s`;
+            // Set opacity to 1 (full opacity)
+            elementStyle.style.opacity = '1';
+        });
+      } catch (error) {
+          console.error('Error during song search:', error);
+      }
+  }
+});
