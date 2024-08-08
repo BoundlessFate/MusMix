@@ -29,7 +29,7 @@ export class ProfileComponent {
       if (c.indexOf(cookieName) === 0) { details = c.substring(cookieName.length, c.length); }
     }
     try {
-      const response = await fetch('http://127.0.0.1:5000/getProfileData', {
+      const response = await fetch('https://musmix.site/getProfileData', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
@@ -85,7 +85,7 @@ export class ProfileComponent {
       if (c.indexOf(cookieName) === 0) { details = c.substring(cookieName.length, c.length); }
     }
     try {
-      const response = await fetch('http://127.0.0.1:5000/setProfileData', {
+      const response = await fetch('https://musmix.site/setProfileData', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
@@ -168,7 +168,7 @@ export class ProfileComponent {
       const formData = new FormData();
       formData.append('file', file);
       formData.append('details', details);
-      const response = await fetch('http://127.0.0.1:5000/uploadPhoto', {
+      const response = await fetch('https://musmix.site/uploadPhoto', {
           method: 'POST',
           body: formData
         });
