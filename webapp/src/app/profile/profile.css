@@ -98,7 +98,7 @@ h2 {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
-        gap: 15%;
+        gap: 7.5%;
         margin: 4.2%;
         margin-left: 7%;
         justify-content: flex-start; /* Ensure buttons are aligned to the start */

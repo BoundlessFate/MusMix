@@ -18,9 +18,16 @@ export class RegisterComponent {
     const username = (document.getElementById('uname') as HTMLInputElement).value;
     const password = (document.getElementById('pwd') as HTMLInputElement).value;
     const confirmpassword = (document.getElementById('conpwd') as HTMLInputElement).value;
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const hasNumber = /\d/.test(password);
     try {
       if (confirmpassword.localeCompare(password) != 0) {
         alert('Password and Confirm Password Do Not Match!');
+        window.location.reload();
+      }
+      if (!(hasUppercase && hasLowercase && hasNumber)) {
+        alert('Password Does Not Fulfill Requirements Below!');
         window.location.reload();
       }
       const response = await fetch('http://127.0.0.1:5000/register', {
