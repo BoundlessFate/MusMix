@@ -269,15 +269,15 @@ def user_search():
                 songVals.append((
                     val,
                     f'''
-                    <img src="{song["album"]["images"][0]["url"]}">
-                    # <h3>{song["name"]} <i>{song["artists"][0]["name"]}</i></h3>
+                    <img src="{song["album"]["images"][0]["url"]}" style="width: 10%; height: auto;">
+                    <h3>{song["name"]}</h3>
+                    <h3><i>{song["artists"][0]["name"]}</i></h3>
                     '''
                 ))
-
+                # songVals.append((str(val)+"<strong> "+ song['name']+"</strong> <i>"+song['artists'][0]['name']+"</i>"))
         songVals.sort(key=lambda tup: tup[0], reverse = True)
         i = 1
         finalMessage = [""]*10
-
         for song in songVals:
             if (i > 10):
                 break
@@ -292,6 +292,7 @@ def user_search():
         if len(songVals)!=0:
             # THIS IS THE CODE TO RUN WHEN SONGS FOUND
             print("Songs are found")
+            print(finalMessage)
             response = {
                 #set each final message to an index in finalMessage
                 "m1": finalMessage[0],
@@ -407,7 +408,6 @@ def user_recommended():
         finalMessage8 = ""
         finalMessage9 = ""
         finalMessage10 = ""
-
         for song in songVals:
             if (i > 10):
                 break
@@ -415,7 +415,26 @@ def user_recommended():
             print("#"+str(i))
             print(f"Track Name & Artist: {song[1]}")
             print(f"Score: {int(song[0])}")
-            finalMessage[i - 1] = song[1] + "\n"
+            if i==1:
+                finalMessage1 = song[1] +"\n"
+            elif i==2:
+                finalMessage2 = song[1] +"\n"
+            elif i==3:
+                finalMessage3 =  song[1] +"\n"
+            elif i==4:
+                finalMessage4 = song[1] +"\n"
+            elif i==5:
+                finalMessage5 = song[1] +"\n"
+            elif i==6:
+                finalMessage6 = song[1] +"\n"
+            elif i==7:
+                finalMessage7 = song[1] +"\n"
+            elif i==8:
+                finalMessage8 = song[1] +"\n"
+            elif i==9:
+                finalMessage9 = song[1] +"\n"
+            elif i==10:
+                finalMessage10 =  song[1] +"\n"
 
             
             i += 1
