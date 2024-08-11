@@ -22,6 +22,7 @@ export class RegisterComponent extends DefaultRegistrationsHandler {
     const hasUppercase = /[A-Z]/.test(password);
     const hasLowercase = /[a-z]/.test(password);
     const hasNumber = /\d/.test(password);
+    
     try {
       if (confirmpassword.localeCompare(password) != 0) {
         alert('Password and Confirm Password Do Not Match!');
@@ -39,12 +40,22 @@ export class RegisterComponent extends DefaultRegistrationsHandler {
           body: JSON.stringify({ username, password })
         });
       
+      const result = await response.json();
       if (response.ok) {
           alert('Register successful!');
           this.setCookie(username+" "+password);
           this.router.navigate(['/']);
       } else {
-          alert('Register failed.');
+          if (result.message === "Username is already in use") {
+              alert('Username is already in use.');
+          } else if (result.message === "error while registering") {
+              alert('Error while registering. Please try again.');
+          } else if (result.message === "User is registered") {
+              alert('User is registered');
+          }
+          else {
+              alert('Register failed.');
+          }
           window.location.reload();
       }
     } catch (error) {
