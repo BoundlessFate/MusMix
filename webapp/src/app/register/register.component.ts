@@ -50,8 +50,6 @@ export class RegisterComponent extends DefaultRegistrationsHandler {
               alert('Username is already in use.');
           } else if (result.message === "error while registering") {
               alert('Error while registering. Please try again.');
-          } else if (result.message === "User is registered") {
-              alert('User is registered');
           }
           else {
               alert('Register failed.');
