@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router'
+import { DefaultLoginsHandler } from '../loginsHandler';
 
 
 @Component({
@@ -10,10 +11,10 @@ import { Router } from '@angular/router'
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
-  constructor(private router: Router) { }
+export class LoginComponent extends DefaultLoginsHandler {
+  constructor(private router: Router) {super();}
   title = 'MusMix'
-  async login(event: Event){
+  override async login(event: Event){
     event.preventDefault(); 
 
     const username = (document.getElementById('uname') as HTMLInputElement).value;
@@ -38,11 +39,5 @@ export class LoginComponent {
     } catch (error) {
         console.error('Error:', error);
     }
-  }
-  async setCookie(value: string) {
-    const date = new Date();
-    date.setTime(date.getTime() + (6*60*60*1000)); // Set cookies to reset after 6 hours
-    const expires = "expires=" + date.toUTCString();
-    document.cookie = `login=${value}; ${expires}; path=/`;
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
+import { DefaultRegistrationsHandler } from '../loginsHandler';
 
 @Component({
   selector: 'app-register',
@@ -9,11 +10,11 @@ import { Router } from '@angular/router';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent {
+export class RegisterComponent extends DefaultRegistrationsHandler {
   title = 'MusMix'
-  constructor(private router: Router) { }
+  constructor(private router: Router) {super();}
 
-  async register(event: Event){
+  override async register(event: Event){
     event.preventDefault(); 
     const username = (document.getElementById('uname') as HTMLInputElement).value;
     const password = (document.getElementById('pwd') as HTMLInputElement).value;
@@ -49,11 +50,5 @@ export class RegisterComponent {
     } catch (error) {
       console.error('Error:', error);
     }
-  }
-  async setCookie(value: string) {
-    const date = new Date();
-    date.setTime(date.getTime() + (6*60*60*1000)); // Set cookies to reset after 6 hours
-    const expires = "expires=" + date.toUTCString();
-    document.cookie = `login=${value}; ${expires}; path=/`;
   }
 }
