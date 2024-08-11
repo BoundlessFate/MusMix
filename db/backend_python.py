@@ -325,6 +325,7 @@ def user_search():
 # Search Genres
 @app.route('/recommended', methods=['POST','GET', 'OPTIONS'])
 def user_recommended():
+
     if request.method == "POST":
         data = request.get_json()
         details = data.get('details')

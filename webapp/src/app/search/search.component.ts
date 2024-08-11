@@ -44,13 +44,27 @@ export class SearchComponent {
       (document.getElementById('bottom-left') as HTMLInputElement).style.display='none';
       console.log(name)
       console.log(artist)
+      var details = "";
+      const cookieName = "login=";
+      const allCookies = document.cookie.split(';');
+      for (let i = 0; i < allCookies.length; i++) {
+        let c = allCookies[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(cookieName) === 0) { details = c.substring(cookieName.length, c.length); }
+      }
+      var body;
+      if (details === "") {
+        body = JSON.stringify({ name, artist })
+      } else {
+        body = JSON.stringify({ name, artist, details })
+      }
       //fetch algorithm output from backend
       const response = await fetch('https://musmix.site/search', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ name, artist })
+          body: body
         })
         const data = await response.json();
 
