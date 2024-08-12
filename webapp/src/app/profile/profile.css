@@ -324,13 +324,14 @@ h2 {
     font-weight: 500;
     text-decoration: none;
     white-space: nowrap; /* Ensure text does not wrap to the next line */
-    width:95%;
+    width:80%;
     margin-top: 8%;
     text-align: center;
     color: #fff;
     padding:5%;
     padding-left:10%;
     padding-right:10%;
+    text-align: center;
 }
 
 .custom-button:hover {
@@ -339,6 +340,7 @@ h2 {
 
 .photoInput{
     display: none;
+    
 }
 
 .preview{
