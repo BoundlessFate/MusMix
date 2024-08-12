@@ -54,13 +54,23 @@ export class ProfileComponent {
           console.log("photo not set");
         }
         if (result.favorite_songs) {
-          (document.getElementById('favorite_songs') as HTMLParagraphElement).textContent = result.favorite_songs;
+          //spacing
+          let favoriteSongsText = Array.isArray(result.favorite_songs) 
+          ? result.favorite_songs.join(', ')
+          : result.favorite_songs;
+
+          (document.getElementById('favorite_songs') as HTMLParagraphElement).innerHTML = "<strong>Favorite Songs: </strong>" + favoriteSongsText;
           console.log("favorite songs set");
         } else {
           console.log("favorite songs not set");
         }
         if (result.favorite_genres) {
-          (document.getElementById('favorite_genres') as HTMLInputElement).textContent = result.favorite_genres;
+            //spacing
+            let favoriteGenreText = Array.isArray(result.favorite_genres) 
+            ? result.favorite_genres.join(', ')
+            : result.favorite_genres;
+          
+          (document.getElementById('favorite_genres') as HTMLInputElement).innerHTML = "<strong>Favorite Genres: </strong>" +favoriteGenreText;
           console.log("favorite genres set");
         } else {
           console.log("favorite genres not set");

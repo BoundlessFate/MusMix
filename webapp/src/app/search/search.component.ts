@@ -21,6 +21,7 @@ export class SearchComponent {
     window.addEventListener('DOMContentLoaded', (event) => {
       const songInput = document.getElementById('songInput') as HTMLInputElement;
       const artistInput = document.getElementById('artistInput') as HTMLInputElement;
+      const searchButton = document.getElementById('searchButton') as HTMLButtonElement;
   
       // assures that when "enter" is pressed, the backend algorithm for finding similar songs begins
       songInput.addEventListener('keydown', (e: KeyboardEvent) => {
@@ -35,6 +36,14 @@ export class SearchComponent {
             this.search_song()
         }
     });
+
+      // Trigger search when the search button is clicked
+      searchButton.addEventListener('click', () => {
+        console.log("search button clicked");
+
+        this.search_song();
+    });
+
     });
   }
   async search_song() {
@@ -108,6 +117,7 @@ export class SearchComponent {
       //make the input fields disappear
       (document.getElementById('songInput') as HTMLInputElement).style.display = 'none';
       (document.getElementById('artistInput')as HTMLInputElement).style.display = 'none';
+      (document.getElementById('searchButton') as HTMLButtonElement).style.display = 'none';
 
       //change color of caption
       const caption = document.getElementById('caption') as HTMLInputElement;
@@ -165,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
           //parse all "out" elements
           const elements = document.querySelectorAll('[id^="out"]');
           elements.forEach((element, index) => {
-            const delay = index * 0.2 +2; // Stagger delays
+            const delay = index * 0.2 +3.5; // Stagger delays
             const elementStyle = element as HTMLElement;
 
             // Start elements as hidden
