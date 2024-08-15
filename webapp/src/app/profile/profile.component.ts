@@ -144,7 +144,7 @@ export class ProfileComponent {
     }
     if (details === "") {
         // Cookie not found -- Redirect to login
-        alert('Not logged in!');
+        alert('User is not logged in. Redirecting to login page...');
         this.router.navigate(['/login']);
         return;
     }

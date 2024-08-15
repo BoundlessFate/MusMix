@@ -136,7 +136,7 @@ export class SearchComponent {
 
     } catch (error) {
       console.error('Error:', error);
-      alert("error");
+      alert("We searched everywhere under the sun, and no songs could be found!");
       window.location.reload();
     }
   }

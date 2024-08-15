@@ -42,18 +42,17 @@ export class RegisterComponent extends DefaultRegistrationsHandler {
       
       const result = await response.json();
       if (response.ok) {
-          alert('Register successful!');
+        alert('User is registered');
           this.setCookie(username+" "+password);
           this.router.navigate(['/']);
       } else {
           if (result.message === "Username is already in use") {
-              alert('Username is already in use.');
+              alert('User is already registered');
           } else if (result.message === "error while registering") {
               alert('Error while registering. Please try again.');
-          } else if (result.message === "User is registered") {
-              alert('User is registered');
           }
           else {
+            console.log(result.message)
               alert('Register failed.');
           }
           window.location.reload();

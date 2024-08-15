@@ -29,11 +29,11 @@ export class LoginComponent extends DefaultLoginsHandler {
         });
         
         if (response.ok) {
-            alert('Login successful!');
+            alert('Login success');
             this.setCookie(username+" "+password);
             this.router.navigate(['/']);
         } else {
-            alert('Login failed.');
+            alert('Incorrect username or password');
             window.location.reload();
         }
     } catch (error) {
